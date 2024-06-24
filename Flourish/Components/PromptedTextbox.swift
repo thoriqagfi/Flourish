@@ -5,15 +5,16 @@
 //  Created by Agfi on 24/06/24.
 //
 
-
 import SwiftUI
 
 struct PromptedTextbox: View {
-    @State var question: String = "How did you feel when you first arrived at your new workplace? Describe your emotions and first impressions?"
-    @State var answer: String = "When I first arrived at my new workplace, I felt a mix of excitement and nervousness :DD The modern building and friendly receptionist made a positive first impression. \n\nDespite my apprehension about meeting new colleagues and starting my new role, the welcoming atmosphere made me feel optimistic about this new chapter 😎 😎"
+    var question: String // Accept a single question
+    @Binding var currentPage: Int // Binding to currentPage
+    var totalQuestions: Int // Total number of questions
+    @State private var answer: String = ""
     
     var body: some View {
-        VStack (alignment: .center, spacing: 32) {
+        VStack(alignment: .center, spacing: 32) {
             
             // Subheadline/Emphasized
             Text(question)
@@ -56,19 +57,23 @@ struct PromptedTextbox: View {
                 .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
             
             // Subheadline/Regular
-            Text(answer)
+            TextEditor(text: $answer)
                 .font(Font.custom("SF Pro", size: 15))
                 .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-                .frame(width: 312, alignment: .topLeading)
+                .frame(width: 312, height: 200, alignment: .topLeading)
+                .background(Color.customPrimary30)
+                .cornerRadius(10)
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(.top, 20)
+        .padding(.horizontal, 20)
         .frame(width: 353, height: 685)
         .background(Color.customPrimary30)
         .cornerRadius(10)
     }
 }
 
+
 #Preview {
-    PromptedTextbox()
+    ContentView()
 }
