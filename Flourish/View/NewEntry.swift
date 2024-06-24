@@ -7,22 +7,46 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct NewEntry: View {
+    @State private var showPopup = false
+
     var body: some View {
-        VStack(spacing: 32, content: {
-            Text("Start self-journaling today. Dedicate a space to freely express your thoughts and reflect on your experiences.")
-                .font(.caption)
-                .foregroundStyle(.gray)
+        ZStack {
             VStack(spacing: 32) {
-                ForEach(JournalContents.contents, id: \.title) { content in
-                    EntryCard(data: content)
+                Text("Start self-journaling today. Dedicate a space to freely express your thoughts and reflect on your experiences.")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+
+                VStack(spacing: 32) {
+                    ForEach(JournalContents.contents, id: \.title) { content in
+                        EntryCard(data: content)
+                            .onTapGesture {
+                                showPopup = true
+                            }
+                    }
                 }
             }
-        })
-        .padding(.horizontal, 20)
-        .padding(.vertical, 32)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 32)
+            .blur(radius: showPopup ? 3 : 0) // Apply blur effect when popup is visible
+
+            if showPopup {
+                Color.black.opacity(0.4) // Semi-transparent background
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showPopup = false
+                    }
+
+                PopupView(showPopup: $showPopup)
+                    .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut, value: showPopup)
     }
 }
+
 
 #Preview {
     ContentView()

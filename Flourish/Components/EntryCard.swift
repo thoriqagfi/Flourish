@@ -20,8 +20,9 @@ struct EntryCard: View {
                 Text(data.description)
                     .font(.caption)
                     .foregroundStyle(.gray)
+                    .lineLimit(3)
             })
-            .frame(width: 237, alignment: .topLeading)
+            .frame(width: 237, height: 60, alignment: .topLeading)
         })
         .padding(16)
         .background(

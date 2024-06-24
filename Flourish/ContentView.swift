@@ -55,7 +55,7 @@ struct ContentView: View {
                                 .foregroundColor(.orange.opacity(0.6))
                                 .background(Color.white)
                                 .clipShape(Circle())
-                                .shadow(color: .gray, radius: 4, x: 0, y: 4)
+                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         .padding(.bottom, geometry.safeAreaInsets.bottom + 40)
                         Spacer()
