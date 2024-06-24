@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var selectedDayIndex: Int? = nil
+    
     var body: some View {
-        VStack(spacing: 0, content: {
+        VStack(spacing: -32, content: {
             TopBar()
                 .zIndex(1)
             ScrollView(content: {
@@ -20,17 +22,30 @@ struct HomeView: View {
                             Image("Plant")
                         })
                     })
-                    StreakDateCard()
-                    Spacer()
-                    JournalingCard()
+                    StreakDateCard(selectedDayIndex: $selectedDayIndex)
+                        .padding(.top, -32)
+                        .padding(.bottom, 32)
+                    VStack(spacing: 32, content: {
+                        JournalingCard(journalType: "Reflection", date: getSelectedDate())
+                        JournalingCard(journalType: "To-Do List", date: getSelectedDate())
+                    })
                     Spacer()
                 })
             })
         })
         .background(Color.customPrimary30)
-//        .edgesIgnoringSafeArea(.all)
+    }
+    
+    func getSelectedDate() -> Date? {
+        guard let index = selectedDayIndex else { return nil }
+        let today = Date()
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: today)
+        let daysToAdd = index - (weekday - 1)
+        return calendar.date(byAdding: .day, value: daysToAdd, to: today)!
     }
 }
+
 
 #Preview {
     ContentView()
