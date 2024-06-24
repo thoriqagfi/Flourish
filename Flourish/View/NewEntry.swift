@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct NewEntry: View {
-    @State private var showPopup = false
+    @Binding var showPopup: Bool
+    @Binding var showingNewEntrySheet: Bool
 
     var body: some View {
         ZStack {
@@ -23,7 +22,10 @@ struct NewEntry: View {
                     ForEach(JournalContents.contents, id: \.title) { content in
                         EntryCard(data: content)
                             .onTapGesture {
-                                showPopup = true
+                                showingNewEntrySheet = false // Close the sheet
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    showPopup = true // Show the popup after a delay to ensure the sheet closes first
+                                }
                             }
                     }
                 }
@@ -46,6 +48,7 @@ struct NewEntry: View {
         .animation(.easeInOut, value: showPopup)
     }
 }
+
 
 
 #Preview {

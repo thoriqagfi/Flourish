@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection: Tab = .home
     @State private var showingNewEntrySheet = false
+    @State private var showPopup = false // Add this state variable
 
     enum Tab {
         case home
@@ -28,7 +29,7 @@ struct ContentView: View {
                         }
                         .tag(Tab.home)
 
-                    NewEntry()
+                    Text("Profile")
                         .tabItem {
                             Label("Profile", systemImage: "person.fill")
                         }
@@ -63,12 +64,23 @@ struct ContentView: View {
                 }
             }
             .edgesIgnoringSafeArea(.all)
+            
+            if showPopup {
+                Color.black.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        showPopup = false
+                    }
+                PopupView(showPopup: $showPopup)
+            }
         }
         .sheet(isPresented: $showingNewEntrySheet) {
-            NewEntry()
+            NewEntry(showPopup: $showPopup, showingNewEntrySheet: $showingNewEntrySheet) // Pass the bindings
         }
     }
 }
+
+
 #Preview {
     ContentView()
 }

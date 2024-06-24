@@ -12,7 +12,7 @@ struct PopupView: View {
     @State private var journalText: String = ""
     @State private var isEditing: Bool = false // Track editing state
     @Binding var showPopup: Bool
-
+    
     let model = GenerativeModel(name: "gemini-pro", apiKey: "AIzaSyCw_Qr1xj_qgA1yQcxK_9-hZwh7Otn5k8U")
     @State var output: String = ""
     @State private var newMessage = ""
@@ -22,7 +22,7 @@ struct PopupView: View {
             // Background overlay
             Color.black.opacity(0.2)
                 .edgesIgnoringSafeArea(.all)
-
+            
             VStack {
                 // White frame container
                 VStack(alignment: .center, spacing: 16) {
@@ -32,7 +32,8 @@ struct PopupView: View {
                         .foregroundColor(.black)
                     
                     // TextEditor with placeholder
-                    ZStack(alignment: .topLeading) {                        TextEditor(text: $journalText)
+                    ZStack(alignment: .topLeading) {
+                        TextEditor(text: $journalText)
                             .frame(width: 313, height: 187)
                             .scrollContentBackground(.hidden)
                             .background(Color.customPrimary30)
@@ -57,7 +58,7 @@ struct PopupView: View {
                 .background(Color.white)
                 .cornerRadius(20)
                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
-
+                
                 HStack(alignment: .center, spacing: 12) {
                     
                     // Back button
@@ -79,7 +80,7 @@ struct PopupView: View {
                         // Action to perform when button is tapped
                         print("Generate button tapped")
                         Task {
-                            let prompt = journalText
+                            let prompt = "I want to write a journal with a topic \(journalText) Can you help me make a prompt question to help me writing. Provide me with 5 main question without any following question or additional description."
                             let response = try await model.generateContent(prompt)
                             if let text = response.text {
                                 output = text
@@ -106,6 +107,7 @@ struct PopupView: View {
         .frame(width: 393, height: 852)
     }
 }
+
 
 #Preview {
     ContentView()
