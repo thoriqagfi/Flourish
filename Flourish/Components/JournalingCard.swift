@@ -36,7 +36,7 @@ struct JournalingCard: View {
             
             if journalType == "Reflection" {
                 // Start Reflection Journaling
-                Text("What Happened Today?")
+                Text(entry!.questions.first!)
                     .font(.body)
                     .fontWeight(.bold)
                     .foregroundColor(Color.secondary)
@@ -49,7 +49,7 @@ struct JournalingCard: View {
             }
             
             HStack(alignment: .bottom, content: {
-                Text("20.30")
+                Text(dateFormatter.string(from: entry!.date))
                     .font(.caption)
                     .foregroundColor(Color.gray)
                 Text("-")

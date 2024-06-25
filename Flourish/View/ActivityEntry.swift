@@ -17,9 +17,11 @@ struct ActivityEntry: View {
     private let rectHeight: CGFloat = 4
     private let rectSpacing: CGFloat = 5
     
-    var questions: [String] // Accept the questions array
+    var topic: String
+    var questions: [String]
     
-    init(questions: [String]) {
+    init(topic: String, questions: [String]) {
+        self.topic = topic
         self.questions = questions
         _answers = State(initialValue: Array(repeating: "", count: questions.count))
     }
@@ -41,47 +43,39 @@ struct ActivityEntry: View {
                 ForEach(0..<questions.count, id: \.self) { index in
                     PromptedTextbox(
                         question: questions[index],
-                        answer: self.$answers[index],
-                        currentPage: $currentPage,
-                        totalQuestions: questions.count
+                        answer: self.$answers[index], 
+                        topic: topic
                     )
                     .tag(index)
                 }
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)) // Hide page status indicators
             .onAppear {
-                // Ensure currentPage is set correctly when the view appears
-                currentPage = 0 // or set it to the index you want initially selected
+                currentPage = 0 // Reset currentPage when view appears
             }
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("Questionnaire", displayMode: .inline)
         .navigationBarItems(
             leading: Button(action: {
-                // Action to go back, e.g., dismiss view
                 presentationMode.wrappedValue.dismiss()
             }) {
                 Text("Back")
                     .foregroundColor(.customSecondary100)
             },
             trailing: Button(action: {
-                // Submit action
                 self.submitJournal()
             }) {
                 Text("Submit Journal")
                     .foregroundColor(currentPage == questions.count - 1 ? .customSecondary100 : .gray)
             }
-                .disabled(currentPage != questions.count - 1)
+            .disabled(currentPage != questions.count - 1)
         )
         .background(Color.white)
     }
     
     private func getRectangleColor(for index: Int) -> Color {
-        if index <= currentPage {
-            return Color.customPrimary100 // Adjust this to your actual color
-        } else {
-            return Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.18)
-        }
+        index <= currentPage ? Color.customPrimary100 : Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.18)
     }
     
     private func submitJournal() {
@@ -90,12 +84,17 @@ struct ActivityEntry: View {
             return
         }
         
-        JournalManager.shared.completeEntry(questions: questions, answers: answers)
+        // Save answers to JournalManager
+        JournalManager.shared.saveEntry(topic: topic, questions: questions, answers: answers)
+        
+        // Complete the journal entry
+        JournalManager.shared.completeEntry(for: topic)
         
         // Perform any additional actions, like dismissing the view
         presentationMode.wrappedValue.dismiss()
     }
 }
+
 
 struct ActivityEntry_Previews: PreviewProvider {
     static var questions = [

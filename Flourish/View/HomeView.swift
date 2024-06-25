@@ -12,29 +12,28 @@ struct HomeView: View {
     @State private var journalEntries: [JournalEntry] = []
     
     var body: some View {
-        VStack(spacing: -32, content: {
+        VStack(spacing: -32) {
             TopBar()
                 .zIndex(1)
-            ScrollView(content: {
-                VStack(content: {
+            ScrollView {
+                VStack {
                     Image("PlantBackground")
-                        .overlay(alignment: .center, content: {
-                            VStack(content: {
-                                Image("Plant")
-                            })
-                        })
+                        .overlay(alignment: .center) {
+                            Image("Plant")
+                        }
                     StreakDateCard(selectedDayIndex: $selectedDayIndex)
                         .padding(.top, -32)
                         .padding(.bottom, 32)
-                    VStack(spacing: 32, content: {
-                        ForEach(journalEntries, id: \.self) { entry in
+                    
+                    VStack(spacing: 32) {
+                        ForEach(filteredEntries(), id: \.self) { entry in
                             JournalingCard(journalType: "Reflection", date: getSelectedDate(), entry: entry)
                         }
-                    })
+                    }
                     Spacer()
-                })
-            })
-        })
+                }
+            }
+        }
         .background(Color.customPrimary30)
         .onAppear(perform: loadJournalEntries)
     }
@@ -52,10 +51,16 @@ struct HomeView: View {
         // Load journal entries using the JournalManager
         journalEntries = JournalManager.shared.loadEntries()
     }
+    
+    func filteredEntries() -> [JournalEntry] {
+        guard let selectedDate = getSelectedDate() else { return [] }
+        let calendar = Calendar.current
+        let filteredEntries = journalEntries.filter { entry in
+            return calendar.isDate(entry.date, inSameDayAs: selectedDate)
+        }
+        return filteredEntries
+    }
 }
-
-
-
 
 #Preview {
     ContentView()

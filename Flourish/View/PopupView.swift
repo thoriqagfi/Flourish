@@ -10,13 +10,14 @@ import GoogleGenerativeAI
 
 struct PopupView: View {
     @State private var journalText: String = ""
-    @State private var isEditing: Bool = false // Track editing state
+    @State private var isLoading = false
+    @State private var isNavigating = false
     @Binding var showPopup: Bool
     
     let model = GenerativeModel(name: "gemini-pro", apiKey: "AIzaSyCw_Qr1xj_qgA1yQcxK_9-hZwh7Otn5k8U")
+    @State private var topic: String = ""
     @State private var questions: [String] = []
-    @State private var isNavigating = false
-    @State private var isLoading = false // Track loading state
+    @State private var didGenerateQuestions = false
     
     var body: some View {
         NavigationView {
@@ -33,25 +34,13 @@ struct PopupView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.black)
                         
-                        // TextEditor with placeholder
-                        ZStack(alignment: .topLeading) {
-                            TextEditor(text: $journalText)
-                                .frame(width: 313, height: 187)
-                                .scrollContentBackground(.hidden)
-                                .background(Color.customPrimary30)
-                                .cornerRadius(16)
-                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
-                                .onTapGesture {
-                                    isEditing = true
-                                }
-                            if journalText.isEmpty && !isEditing {
-                                Text("Enter your topic here...")
-                                    .foregroundColor(Color(UIColor.placeholderText))
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 10)
-                                    .allowsHitTesting(false) // Prevents text from being selectable
-                            }
-                        }
+                        TextField("Enter your topic here...", text: $topic)
+                            .padding()
+                            .background(Color.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                            .foregroundColor(.black)
+                            .frame(width: 300)
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 16)
@@ -61,25 +50,21 @@ struct PopupView: View {
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                     
-                    HStack(alignment: .center, spacing: 12) {
+                    HStack(spacing: 12) {
                         // Back button
                         Button(action: {
-                            // Action to perform when button is tapped
-                            print("Back button tapped")
                             showPopup = false
                         }) {
                             Image(systemName: "arrowshape.turn.up.backward")
                                 .foregroundColor(.black)
                                 .padding(20)
-                                .background(Color.customPrimary30)
+                                .background(Color.gray.opacity(0.1))
                                 .cornerRadius(20)
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         
                         // Generate button
                         Button(action: {
-                            // Action to perform when button is tapped
-                            print("Generate button tapped")
                             generateQuestions()
                         }) {
                             if isLoading {
@@ -93,7 +78,7 @@ struct PopupView: View {
                                     .foregroundColor(.black)
                                     .padding(.horizontal, 96)
                                     .padding(.vertical, 20)
-                                    .background(Color.customPrimary100)
+                                    .background(Color.gray.opacity(0.2))
                                     .cornerRadius(20)
                                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                             }
@@ -101,31 +86,43 @@ struct PopupView: View {
                     }
                     .padding(.top, 14)
                 }
-                
+            }
+            .onChange(of: questions) { _ in
+                if !questions.isEmpty && !didGenerateQuestions {
+                    didGenerateQuestions = true
+                    isNavigating = true
+                }
+            }
+            .background(
                 NavigationLink(
-                    destination: ActivityEntry(questions: questions),
+                    destination: ActivityEntry(topic: topic, questions: questions),
                     isActive: $isNavigating,
                     label: { EmptyView() }
                 )
-            }
+            )
         }
     }
     
     private func generateQuestions() {
         isLoading = true
         Task {
-            let prompt = "I want to write a journal with a topic \(journalText). Can you help me make a prompt question to help me writing? Provide me with 5 main questions without any following questions or additional description."
+            let prompt = "I want to write a journal with a topic \(topic). Can you help me make a prompt question to help me writing? Provide me with 5 main questions without any following questions or additional description."
             do {
                 let response = try await model.generateContent(prompt)
                 if let text = response.text {
                     questions = text.split(separator: "\n").map { String($0) }
-                    isNavigating = true
                 }
             } catch {
                 print("Error generating questions: \(error.localizedDescription)")
             }
             isLoading = false
         }
+    }
+}
+
+struct PopupView_Previews: PreviewProvider {
+    static var previews: some View {
+        PopupView(showPopup: .constant(true))
     }
 }
 

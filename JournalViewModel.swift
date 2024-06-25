@@ -11,46 +11,45 @@ class JournalManager {
     static let shared = JournalManager()
     private let userDefaultsKey = "journalEntries"
     
-    func saveEntry(_ entry: JournalEntry) {
-        var entries = loadEntries()
-        entries.append(entry)
-        if let data = try? JSONEncoder().encode(entries) {
-            UserDefaults.standard.set(data, forKey: userDefaultsKey)
-        }
+    private var entries: [JournalEntry] = []
+    
+    init() {
+        entries = loadEntries()
+    }
+    
+    func saveEntry(topic: String, questions: [String], answers: [String]) {
+        let newEntry = JournalEntry(topic: topic, questions: questions, answers: answers, date: Date(), isCompleted: false)
+        entries.append(newEntry)
+        saveEntries()
     }
     
     func loadEntries() -> [JournalEntry] {
         if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
-           let entries = try? JSONDecoder().decode([JournalEntry].self, from: data) {
-            return entries
+           let loadedEntries = try? JSONDecoder().decode([JournalEntry].self, from: data) {
+            return loadedEntries
         }
         return []
     }
     
-    func updateEntry(for question: String, withAnswer answer: String) {
-        var entries = loadEntries()
-        if let entryIndex = entries.firstIndex(where: { $0.questions.contains(question) }) {
-            if let questionIndex = entries[entryIndex].questions.firstIndex(of: question) {
-                entries[entryIndex].answers[questionIndex] = answer
-                entries[entryIndex].date = Date()
-            }
-        } else {
-            let newEntry = JournalEntry(questions: [question], answers: [answer], date: Date(), isCompleted: false)
-            entries.append(newEntry)
-        }
-        save(entries: entries)
-    }
-
-    func save(entries: [JournalEntry]) {
+    func saveEntries() {
         if let data = try? JSONEncoder().encode(entries) {
             UserDefaults.standard.set(data, forKey: userDefaultsKey)
         }
     }
     
-    func completeEntry(questions: [String], answers: [String]) {
-        var entries = loadEntries()
-        let newEntry = JournalEntry(questions: questions, answers: answers, date: Date(), isCompleted: true)
-        entries.append(newEntry)
-        save(entries: entries)
+    func completeEntry(for topic: String) {
+        if let index = entries.firstIndex(where: { $0.topic == topic }) {
+            entries[index].isCompleted = true
+            saveEntries()
+        }
+    }
+    
+    func updateAnswer(for topic: String, question: String, answer: String) {
+        if let entryIndex = entries.firstIndex(where: { $0.topic == topic }) {
+            if let questionIndex = entries[entryIndex].questions.firstIndex(of: question) {
+                entries[entryIndex].answers[questionIndex] = answer
+                saveEntries()
+            }
+        }
     }
 }
