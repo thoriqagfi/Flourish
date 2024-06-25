@@ -12,7 +12,7 @@ struct PlantView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top) {
-                    UserStats(seeds: 6, streaks: 24)
+                    UserStats()
                     Spacer()
                     VStack(spacing: 16) {
                         Button(action: {

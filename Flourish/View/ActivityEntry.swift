@@ -20,6 +20,8 @@ struct ActivityEntry: View {
     var topic: String
     var questions: [String]
     
+    @State private var user: User = JournalManager.shared.getCurrentUser()
+    
     init(topic: String, questions: [String]) {
         self.topic = topic
         self.questions = questions
@@ -43,15 +45,15 @@ struct ActivityEntry: View {
                 ForEach(0..<questions.count, id: \.self) { index in
                     PromptedTextbox(
                         question: questions[index],
-                        answer: self.$answers[index], 
+                        answer: self.$answers[index],
                         topic: topic
                     )
                     .tag(index)
                 }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never)) // Hide page status indicators
+            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .onAppear {
-                currentPage = 0 // Reset currentPage when view appears
+                currentPage = 0
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -69,7 +71,7 @@ struct ActivityEntry: View {
                 Text("Submit")
                     .foregroundColor(currentPage == questions.count - 1 ? .customSecondary100 : .gray)
             }
-            .disabled(currentPage != questions.count - 1)
+                .disabled(currentPage != questions.count - 1)
         )
         .background(Color.white)
     }
@@ -84,17 +86,23 @@ struct ActivityEntry: View {
             return
         }
         
-        // Save answers to JournalManager
         JournalManager.shared.saveEntry(topic: topic, questions: questions, answers: answers)
         
-        // Complete the journal entry
+        let today = Date()
+        if !JournalManager.shared.hasEntry(for: today) {
+            let updatedSeeds = user.seeds + 5
+            let updatedStreaks = user.streaks + 1
+            JournalManager.shared.updateUser(seeds: updatedSeeds, streaks: updatedStreaks)
+        }
+        
         JournalManager.shared.completeEntry(for: topic)
         
-        // Perform any additional actions, like dismissing the view
+        user = JournalManager.shared.getCurrentUser()
+        
         presentationMode.wrappedValue.dismiss()
     }
+    
 }
-
 
 struct ActivityEntry_Previews: PreviewProvider {
     static var previews: some View {

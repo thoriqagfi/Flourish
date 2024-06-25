@@ -29,6 +29,7 @@
 		D0C501812C2A9BD500C5675B /* PlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501802C2A9BD500C5675B /* PlantView.swift */; };
 		D0C501832C2AAC2200C5675B /* UserStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501822C2AAC2200C5675B /* UserStats.swift */; };
 		D0C501892C2AB5C500C5675B /* JournalContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501882C2AB5C500C5675B /* JournalContents.swift */; };
+		D0C5018B2C2AF0AF00C5675B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5018A2C2AF0AF00C5675B /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		D0C501802C2A9BD500C5675B /* PlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantView.swift; sourceTree = "<group>"; };
 		D0C501822C2AAC2200C5675B /* UserStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStats.swift; sourceTree = "<group>"; };
 		D0C501882C2AB5C500C5675B /* JournalContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalContents.swift; sourceTree = "<group>"; };
+		D0C5018A2C2AF0AF00C5675B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserViewModel.swift; path = Flourish/Resources/UserViewModel.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */,
+				D0C5018A2C2AF0AF00C5675B /* UserViewModel.swift */,
 			);
 			path = VIewModel;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				D09A81542C28116900240E96 /* User.swift in Sources */,
 				D09A81682C29669A00240E96 /* PromptedTextbox.swift in Sources */,
 				D0C501892C2AB5C500C5675B /* JournalContents.swift in Sources */,
+				D0C5018B2C2AF0AF00C5675B /* UserViewModel.swift in Sources */,
 				D0C501832C2AAC2200C5675B /* UserStats.swift in Sources */,
 				D09A81392C280ED300240E96 /* ContentView.swift in Sources */,
 				D09A814B2C2810E700240E96 /* JournalingCard.swift in Sources */,

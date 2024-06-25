@@ -7,8 +7,12 @@
 
 import Foundation
 
-struct User {
-    let name: String
-    let seeds: Int
-    let streaks: Int
+struct User: Codable, Hashable {
+    var seeds: Int
+    var streaks: Int
+    
+    init(seeds: Int = 0, streaks: Int = 0) {
+        self.seeds = seeds
+        self.streaks = streaks
+    }
 }

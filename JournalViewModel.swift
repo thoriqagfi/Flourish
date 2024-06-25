@@ -10,11 +10,36 @@ import Foundation
 class JournalManager {
     static let shared = JournalManager()
     private let userDefaultsKey = "journalEntries"
+    private let userDefaultsUserKey = "currentUser"
+    private var currentUser: User
     
     private var entries: [JournalEntry] = []
     
     init() {
+        if let data = UserDefaults.standard.data(forKey: userDefaultsUserKey),
+           let loadedUser = try? JSONDecoder().decode(User.self, from: data) {
+            self.currentUser = loadedUser
+        } else {
+            self.currentUser = User(seeds: 0, streaks: 0)
+        }
         entries = loadEntries()
+    }
+    
+    func getCurrentUser() -> User {
+        return currentUser
+    }
+    
+    func updateUser(seeds: Int, streaks: Int) {
+        currentUser.seeds = seeds
+        currentUser.streaks = streaks
+        saveCurrentUser()
+    }
+    
+    private func saveCurrentUser() {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(currentUser) {
+            UserDefaults.standard.set(encoded, forKey: userDefaultsUserKey)
+        }
     }
     
     func saveEntry(topic: String, questions: [String], answers: [String]) {
@@ -51,5 +76,9 @@ class JournalManager {
                 saveEntries()
             }
         }
+    }
+    
+    func hasEntry(for date: Date) -> Bool {
+        return entries.contains { Calendar.current.isDate($0.date, inSameDayAs: date) }
     }
 }

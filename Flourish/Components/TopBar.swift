@@ -10,7 +10,7 @@ import SwiftUI
 struct TopBar: View {
     var body: some View {
         HStack {
-            UserStats(seeds: 6, streaks: 24)
+            UserStats()
             
             Spacer()
             

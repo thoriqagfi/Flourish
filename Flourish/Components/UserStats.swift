@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct UserStats: View {
-    @State var seeds: Int
-    @State var streaks: Int
+    @State private var user: User = JournalManager.shared.getCurrentUser()
     
     var body: some View {
         HStack(spacing: 26, content: {
             HStack(spacing: 8, content: {
                 Image(systemName: "leaf")
-                Text("\(seeds) Seeds")
+                Text("\(user.seeds) Seeds")
             })
             HStack(spacing: 8, content: {
                 Image(systemName: "flame")
-                Text("\(streaks) Streak")
+                Text("\(user.streaks) Streak")
             })
         })
         .foregroundColor(.customSecondary100)
