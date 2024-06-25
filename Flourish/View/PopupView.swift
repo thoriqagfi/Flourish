@@ -29,18 +29,26 @@ struct PopupView: View {
                 VStack {
                     // White frame container
                     VStack(alignment: .center, spacing: 16) {
-                        Text("Add your topic")
-                            .font(Font.custom("SF Pro", size: 20).weight(.semibold))
+                        Text(isLoading ? "Generate Your Prompt" : "Add your topic")
+                            .font(.title3)
+                            .fontWeight(.semibold)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.black)
                         
-                        TextField("Enter your topic here...", text: $topic)
-                            .padding()
-                            .background(Color.gray.opacity(0.1))
-                            .cornerRadius(10)
-                            .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
-                            .foregroundColor(.black)
-                            .frame(width: 300)
+                        if isLoading {
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle())
+                                .foregroundColor(.black)
+                                .frame(width: 300, height: 300)
+                        } else {
+                            TextField("Enter your topic here...", text: $topic)
+                                .padding()
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(10)
+                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                                .foregroundColor(.black)
+                                .frame(width: 300)
+                        }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 16)
@@ -50,6 +58,7 @@ struct PopupView: View {
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                     
+                    
                     HStack(spacing: 12) {
                         // Back button
                         Button(action: {
@@ -58,30 +67,25 @@ struct PopupView: View {
                             Image(systemName: "arrowshape.turn.up.backward")
                                 .foregroundColor(.black)
                                 .padding(20)
-                                .background(Color.gray.opacity(0.1))
+                                .background(Color.gray.opacity(0.5))
                                 .cornerRadius(20)
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         
                         // Generate button
                         Button(action: {
-                            generateQuestions()
-                        }) {
-                            if isLoading {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle())
-                                    .foregroundColor(.black)
-                                    .frame(width: 30, height: 30)
-                            } else {
-                                Text("Generate")
-                                    .font(Font.custom("SF Pro", size: 20).weight(.bold))
-                                    .foregroundColor(.black)
-                                    .padding(.horizontal, 96)
-                                    .padding(.vertical, 20)
-                                    .background(Color.gray.opacity(0.2))
-                                    .cornerRadius(20)
-                                    .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                            if !isLoading {
+                                generateQuestions()
                             }
+                        }) {
+                            Text("Generate")
+                                .font(Font.custom("SF Pro", size: 20).weight(.bold))
+                                .foregroundColor(isLoading ? .gray : .black)
+                                .padding(.horizontal, 96)
+                                .padding(.vertical, 20)
+                                .background(isLoading ? Color.gray.opacity(0.18) : Color.customPrimary100)
+                                .cornerRadius(20)
+                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                     }
                     .padding(.top, 14)
@@ -97,7 +101,7 @@ struct PopupView: View {
                 NavigationLink(
                     destination: ActivityEntry(topic: topic, questions: questions),
                     isActive: $isNavigating,
-                    label: { EmptyView() }
+                    label: { HomeView().blur(radius: 10.0) }
                 )
             )
         }
@@ -116,6 +120,7 @@ struct PopupView: View {
                 print("Error generating questions: \(error.localizedDescription)")
             }
             isLoading = false
+            showPopup.toggle()
         }
     }
 }

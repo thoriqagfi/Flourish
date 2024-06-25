@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
     @State private var selection: Tab = .home
     @State private var showingNewEntrySheet = false
@@ -40,7 +39,7 @@ struct ContentView: View {
             }
             .accentColor(.orange)
             .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 2)
-
+            
             GeometryReader { geometry in
                 VStack {
                     Spacer()
@@ -66,12 +65,14 @@ struct ContentView: View {
             .edgesIgnoringSafeArea(.all)
             
             if showPopup {
-                Color.black.opacity(0.4)
-                    .edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        showPopup = false
-                    }
+//                Color.customPrimary30.opacity(0.1)
+//                    .edgesIgnoringSafeArea(.all)
+//                    .blur(radius: 3) // Blur the background when showPopup is true
+//                    .onTapGesture {
+//                        showPopup = false
+//                    }
                 PopupView(showPopup: $showPopup)
+//                    .background(Color.customPrimary10.opacity(0.01)) // Ensure popup background is gray
             }
         }
         .sheet(isPresented: $showingNewEntrySheet) {
@@ -79,7 +80,6 @@ struct ContentView: View {
         }
     }
 }
-
 
 #Preview {
     ContentView()

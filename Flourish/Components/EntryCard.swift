@@ -35,9 +35,8 @@ struct EntryCard: View {
                 startPoint: UnitPoint(x: 1, y: 0.5),
                 endPoint: UnitPoint(x: 0, y: 0.5)
             )) :
-            AnyView(Color.white)
+            AnyView(Color.customPrimary10)
         )
-        
         .cornerRadius(20)
         .shadow(color: .black.opacity(0.08), radius: 7.5, x: 0, y: 0)
     }
