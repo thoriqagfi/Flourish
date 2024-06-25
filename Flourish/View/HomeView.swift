@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var selectedDayIndex: Int? = nil
+    @State private var journalEntries: [JournalEntry] = []
     
     var body: some View {
         VStack(spacing: -32, content: {
@@ -19,21 +20,23 @@ struct HomeView: View {
                     Image("PlantBackground")
                         .overlay(alignment: .center, content: {
                             VStack(content: {
-                            Image("Plant")
+                                Image("Plant")
+                            })
                         })
-                    })
                     StreakDateCard(selectedDayIndex: $selectedDayIndex)
                         .padding(.top, -32)
                         .padding(.bottom, 32)
                     VStack(spacing: 32, content: {
-                        JournalingCard(journalType: "Reflection", date: getSelectedDate())
-                        JournalingCard(journalType: "To-Do List", date: getSelectedDate())
+                        ForEach(journalEntries, id: \.self) { entry in
+                            JournalingCard(journalType: "Reflection", date: getSelectedDate(), entry: entry)
+                        }
                     })
                     Spacer()
                 })
             })
         })
         .background(Color.customPrimary30)
+        .onAppear(perform: loadJournalEntries)
     }
     
     func getSelectedDate() -> Date? {
@@ -42,9 +45,16 @@ struct HomeView: View {
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: today)
         let daysToAdd = index - (weekday - 1)
-        return calendar.date(byAdding: .day, value: daysToAdd, to: today)!
+        return calendar.date(byAdding: .day, value: daysToAdd, to: today)
+    }
+    
+    func loadJournalEntries() {
+        // Load journal entries using the JournalManager
+        journalEntries = JournalManager.shared.loadEntries()
     }
 }
+
+
 
 
 #Preview {

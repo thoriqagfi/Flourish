@@ -9,9 +9,9 @@ import SwiftUI
 
 struct PromptedTextbox: View {
     var question: String // Accept a single question
+    @Binding var answer: String // Bind the answer to the ActivityEntry's state
     @Binding var currentPage: Int // Binding to currentPage
     var totalQuestions: Int // Total number of questions
-    @State private var answer: String = ""
     
     var body: some View {
         VStack(alignment: .center, spacing: 32) {
@@ -26,6 +26,8 @@ struct PromptedTextbox: View {
                 .frame(width: 312, alignment: .topLeading)
             
             Button(action: {
+                // Save the question with an empty answer
+                JournalManager.shared.updateEntry(for: question, withAnswer: "")
                 // Print a message to the console
                 print("Regenerate button tapped")
             }) {
@@ -63,6 +65,9 @@ struct PromptedTextbox: View {
                 .frame(width: 312, height: 200, alignment: .topLeading)
                 .background(Color.customPrimary30)
                 .cornerRadius(10)
+                .onChange(of: answer) { newAnswer in
+                    JournalManager.shared.updateEntry(for: question, withAnswer: newAnswer)
+                }
         }
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(.top, 20)
@@ -72,7 +77,6 @@ struct PromptedTextbox: View {
         .cornerRadius(10)
     }
 }
-
 
 #Preview {
     ContentView()

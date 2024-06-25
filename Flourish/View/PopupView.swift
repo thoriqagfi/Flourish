@@ -16,6 +16,7 @@ struct PopupView: View {
     let model = GenerativeModel(name: "gemini-pro", apiKey: "AIzaSyCw_Qr1xj_qgA1yQcxK_9-hZwh7Otn5k8U")
     @State private var questions: [String] = []
     @State private var isNavigating = false
+    @State private var isLoading = false // Track loading state
     
     var body: some View {
         NavigationView {
@@ -61,7 +62,6 @@ struct PopupView: View {
                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                     
                     HStack(alignment: .center, spacing: 12) {
-                        
                         // Back button
                         Button(action: {
                             // Action to perform when button is tapped
@@ -80,23 +80,23 @@ struct PopupView: View {
                         Button(action: {
                             // Action to perform when button is tapped
                             print("Generate button tapped")
-                            Task {
-                                let prompt = "I want to write a journal with a topic \(journalText). Can you help me make a prompt question to help me writing? Provide me with 5 main questions without any following questions or additional description."
-                                let response = try await model.generateContent(prompt)
-                                if let text = response.text {
-                                    questions = text.split(separator: "\n").map { String($0) }
-                                    isNavigating = true
-                                }
-                            }
+                            generateQuestions()
                         }) {
-                            Text("Generate")
-                                .font(Font.custom("SF Pro", size: 20).weight(.bold))
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 96)
-                                .padding(.vertical, 20)
-                                .background(Color.customPrimary100)
-                                .cornerRadius(20)
-                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                            if isLoading {
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle())
+                                    .foregroundColor(.black)
+                                    .frame(width: 30, height: 30)
+                            } else {
+                                Text("Generate")
+                                    .font(Font.custom("SF Pro", size: 20).weight(.bold))
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 96)
+                                    .padding(.vertical, 20)
+                                    .background(Color.customPrimary100)
+                                    .cornerRadius(20)
+                                    .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                            }
                         }
                     }
                     .padding(.top, 14)
@@ -110,8 +110,24 @@ struct PopupView: View {
             }
         }
     }
+    
+    private func generateQuestions() {
+        isLoading = true
+        Task {
+            let prompt = "I want to write a journal with a topic \(journalText). Can you help me make a prompt question to help me writing? Provide me with 5 main questions without any following questions or additional description."
+            do {
+                let response = try await model.generateContent(prompt)
+                if let text = response.text {
+                    questions = text.split(separator: "\n").map { String($0) }
+                    isNavigating = true
+                }
+            } catch {
+                print("Error generating questions: \(error.localizedDescription)")
+            }
+            isLoading = false
+        }
+    }
 }
-
 
 #Preview {
     ContentView()

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ActivityEntry: View {
     @State private var currentPage = 0
+    @State private var answers: [String]
     @Environment(\.presentationMode) var presentationMode
     
     private let rectCount = 5
@@ -17,6 +18,11 @@ struct ActivityEntry: View {
     private let rectSpacing: CGFloat = 5
     
     var questions: [String] // Accept the questions array
+    
+    init(questions: [String]) {
+        self.questions = questions
+        _answers = State(initialValue: Array(repeating: "", count: questions.count))
+    }
     
     var body: some View {
         VStack {
@@ -35,6 +41,7 @@ struct ActivityEntry: View {
                 ForEach(0..<questions.count, id: \.self) { index in
                     PromptedTextbox(
                         question: questions[index],
+                        answer: self.$answers[index],
                         currentPage: $currentPage,
                         totalQuestions: questions.count
                     )
@@ -59,9 +66,9 @@ struct ActivityEntry: View {
             },
             trailing: Button(action: {
                 // Submit action
-                print("Submit button tapped")
+                self.submitJournal()
             }) {
-                Text("Done")
+                Text("Submit Journal")
                     .foregroundColor(currentPage == questions.count - 1 ? .customSecondary100 : .gray)
             }
                 .disabled(currentPage != questions.count - 1)
@@ -76,18 +83,30 @@ struct ActivityEntry: View {
             return Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.18)
         }
     }
+    
+    private func submitJournal() {
+        guard currentPage == questions.count - 1 else {
+            print("Not all questions have been answered.")
+            return
+        }
+        
+        JournalManager.shared.completeEntry(questions: questions, answers: answers)
+        
+        // Perform any additional actions, like dismissing the view
+        presentationMode.wrappedValue.dismiss()
+    }
 }
-
 
 struct ActivityEntry_Previews: PreviewProvider {
     static var questions = [
-        "1. Halo",
-        "2. Halo",
-        "3. Halo",
-        "4. Halo",
-        "5. Halo",
+        "1. Example Question 1",
+        "2. Example Question 2",
+        "3. Example Question 3",
+        "4. Example Question 4",
+        "5. Example Question 5",
     ]
     static var previews: some View {
-        ActivityEntry(questions: questions)
+//        ActivityEntry(questions: questions)
+        ContentView()
     }
 }

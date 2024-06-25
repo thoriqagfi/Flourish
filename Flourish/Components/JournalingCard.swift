@@ -16,17 +16,7 @@ struct ToDoItem: Identifiable {
 struct JournalingCard: View {
     var journalType: String
     var date: Date?
-    
-    @State private var toDoList: [ToDoItem] = [
-        ToDoItem(id: 0, text: "Attend team meeting at 9:00 AM", isCompleted: false),
-        ToDoItem(id: 1, text: "Reflect on the day and journal", isCompleted: false)
-    ]
-    
-    private var completionPercentage: Int {
-        let total = toDoList.count
-        let completed = toDoList.filter { $0.isCompleted }.count
-        return total > 0 ? (completed * 100 / total) : 0
-    }
+    var entry: JournalEntry?
     
     var body: some View {
         VStack(alignment: .leading, content: {
@@ -35,7 +25,7 @@ struct JournalingCard: View {
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
-                Text(journalType == "Reflection" || journalType == "Activity" ? "Incomplete" : journalType == "To-Do List" ? "\(completionPercentage)%" : "")
+                Text(entry?.isCompleted == true ? "Completed" : "Incomplete")
                     .font(.caption2)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
@@ -51,28 +41,11 @@ struct JournalingCard: View {
                     .fontWeight(.bold)
                     .foregroundColor(Color.secondary)
                     .padding(.bottom, 4)
-                Text("Today was tough. My car broke down in the middle of heavy traffic. I had to wait for a tow truck in the pouring rain, getting completely...")
+                Text(entry?.answers.first ?? "No reflection available.")
                     .font(.subheadline)
                     .foregroundColor(Color.secondary)
                     .lineLimit(3)
                 // End Reflection Journaling
-            } else if journalType == "To-Do List" {
-                // Start To-Do List Journaling
-                ForEach($toDoList) { $item in
-                    HStack(spacing: 4, content: {
-                        Image(systemName: item.isCompleted ? "rectangle.inset.filled" : "rectangle")
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(item.isCompleted ? .customSecondary80 : .secondary)
-                        Text(item.text)
-                            .font(.subheadline)
-                            .strikethrough(item.isCompleted)
-                            .foregroundColor(.secondary)
-                    })
-                    .onTapGesture {
-                        item.isCompleted.toggle()
-                    }
-                }
-                // End To-Do List Journaling
             }
             
             HStack(alignment: .bottom, content: {
@@ -88,7 +61,7 @@ struct JournalingCard: View {
                         .foregroundColor(Color.gray)
                 }
                 Spacer()
-                Image(systemName: journalType == "Reflection" || journalType == "Activity" ? "ellipsis" : journalType == "To-Do List" ? "plus" : "")
+                Image(systemName: "ellipsis")
                     .frame(width: 43, height: 43)
                     .background(Color.customPrimary30)
                     .cornerRadius(20)
@@ -108,6 +81,7 @@ struct JournalingCard: View {
         return formatter
     }
 }
+
 
 
 #Preview {
