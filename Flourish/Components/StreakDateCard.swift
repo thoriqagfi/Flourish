@@ -10,6 +10,8 @@ import SwiftUI
 struct StreakDateCard: View {
     @Binding var selectedDayIndex: Int?
     
+    @State private var journalEntries: [JournalEntry] = [] // Assuming you have access to journal entries
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, d MMMM yyyy"
@@ -35,6 +37,7 @@ struct StreakDateCard: View {
                     let dayName = dayOfWeek(for: index)
                     let isToday = self.isToday(index)
                     let isDisabled = self.isAfterToday(index)
+                    let isEmptyEntry = self.isEmptyEntry(for: index)
                     
                     VStack(spacing: 2, content: {
                         Text(dayName)
@@ -50,10 +53,10 @@ struct StreakDateCard: View {
                         }
                     })
                     .frame(width: 32)
-                    .foregroundColor(isDisabled ? .gray.opacity(0.3) : .customSecondary100)
+                    .foregroundColor(textColor(for: index, isDisabled: isDisabled, isToday: isToday, isEmptyEntry: isEmptyEntry))
                     .padding(.horizontal, 4)
                     .padding(.vertical, 8)
-                    .background(backgroundColor(for: index, isDisabled: isDisabled, isToday: isToday))
+                    .background(backgroundColor(for: index, isDisabled: isDisabled, isToday: isToday, isEmptyEntry: isEmptyEntry))
                     .cornerRadius(12)
                     .onTapGesture {
                         if !isDisabled {
@@ -86,6 +89,9 @@ struct StreakDateCard: View {
         .cornerRadius(20)
         .padding(.horizontal, 20)
         .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+        .onAppear {
+            loadJournalEntries()
+        }
     }
     
     func dayOfWeek(for index: Int) -> String {
@@ -123,20 +129,52 @@ struct StreakDateCard: View {
         return selectedDayIndex == index
     }
     
-    func backgroundColor(for index: Int, isDisabled: Bool, isToday: Bool) -> Color {
+    func backgroundColor(for index: Int, isDisabled: Bool, isToday: Bool, isEmptyEntry: Bool) -> Color {
         if isDisabled {
             return Color.gray.opacity(0.18)
         } else if isSelected(index) {
             return Color.customPrimary100
         } else if isToday {
             return Color.customPrimary80
+        } else if isEmptyEntry {
+            return Color.customDanger.opacity(0.3) // Adjust the color for empty entries
         } else {
             return Color.customPrimary30
         }
     }
+    
+    func textColor(for index: Int, isDisabled: Bool, isToday: Bool, isEmptyEntry: Bool) -> Color {
+        if isDisabled {
+            return Color.gray.opacity(0.3)
+        } else if isSelected(index) {
+            return Color.black
+        } else if isToday {
+            return Color.customSecondary100
+        } else if isEmptyEntry {
+            return Color.customDanger
+        } else {
+            return Color.customSecondary100
+        }
+    }
+    
+    func isEmptyEntry(for index: Int) -> Bool {
+        guard let selectedDate = getSelectedDate(for: index) else { return true }
+        return !journalEntries.contains { Calendar.current.isDate($0.date, inSameDayAs: selectedDate) }
+    }
+    
+    func loadJournalEntries() {
+        // Load journal entries using the JournalManager or any other means
+        journalEntries = JournalManager.shared.loadEntries()
+    }
+    
+    func getSelectedDate(for index: Int) -> Date? {
+        let today = Date()
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: today)
+        let daysToAdd = index - (weekday - 1)
+        return calendar.date(byAdding: .day, value: daysToAdd, to: today)
+    }
 }
-
-
 
 #Preview {
     ContentView()

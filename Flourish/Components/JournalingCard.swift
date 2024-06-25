@@ -19,8 +19,8 @@ struct JournalingCard: View {
     var entry: JournalEntry?
     
     var body: some View {
-        VStack(alignment: .leading, content: {
-            HStack(alignment: .center, content: {
+        VStack(alignment: .leading) {
+            HStack(alignment: .center) {
                 Text(journalType)
                     .font(.title2)
                     .fontWeight(.bold)
@@ -31,43 +31,35 @@ struct JournalingCard: View {
                     .padding(.vertical, 8)
                     .background(Color.orange)
                     .cornerRadius(20)
-            })
+            }
             .padding(.bottom, 20)
             
-            if journalType == "Reflection" {
+            if journalType == "Reflection", let entry = entry {
                 // Start Reflection Journaling
-                Text(entry!.questions.first!)
+                Text(entry.questions.first ?? "No questions available.")
                     .font(.body)
                     .fontWeight(.bold)
-                    .foregroundColor(Color.secondary)
+                    .foregroundColor(.secondary)
                     .padding(.bottom, 4)
-                Text(entry?.answers.first ?? "No reflection available.")
+                Text(entry.answers.first ?? "No reflection available.")
                     .font(.subheadline)
-                    .foregroundColor(Color.secondary)
+                    .foregroundColor(.secondary)
                     .lineLimit(3)
                 // End Reflection Journaling
             }
             
-            HStack(alignment: .bottom, content: {
-                Text(dateFormatter.string(from: entry!.date))
+            HStack(alignment: .bottom) {
+                Text(dateString(for: entry?.date))
                     .font(.caption)
-                    .foregroundColor(Color.gray)
-                Text("-")
-                    .font(.caption2)
-                    .foregroundColor(Color.gray)
-                if let date = date {
-                    Text(dateFormatter.string(from: date))
-                        .font(.caption2)
-                        .foregroundColor(Color.gray)
-                }
+                    .foregroundColor(.gray)
                 Spacer()
                 Image(systemName: "ellipsis")
                     .frame(width: 43, height: 43)
                     .background(Color.customPrimary30)
                     .cornerRadius(20)
-            })
+            }
             .padding(.vertical, 8)
-        })
+        }
         .padding(20)
         .background(Color.white)
         .cornerRadius(20)
@@ -75,14 +67,21 @@ struct JournalingCard: View {
         .padding(.horizontal, 20)
     }
     
-    private var dateFormatter: DateFormatter {
+    private func dateString(for date: Date?) -> String {
+        guard let date = date else { return "" }
+        
+        let calendar = Calendar.current
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, d MMMM yyyy"
-        return formatter
+        
+        if calendar.isDateInToday(date) {
+            formatter.dateFormat = "HH:mm"
+            return formatter.string(from: date)
+        } else {
+            formatter.dateFormat = "HH:mm - EEEE, d MMMM yyyy"
+            return formatter.string(from: date)
+        }
     }
 }
-
-
 
 #Preview {
     ContentView()

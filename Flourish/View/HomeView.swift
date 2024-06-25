@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var selectedDayIndex: Int? = nil
+    @State private var selectedDayIndex: Int?
     @State private var journalEntries: [JournalEntry] = []
+    
+    init() {
+        _selectedDayIndex = State(initialValue: Calendar.current.component(.weekday, from: Date()) - 1)
+    }
     
     var body: some View {
         VStack(spacing: -32) {
@@ -61,6 +65,7 @@ struct HomeView: View {
         return filteredEntries
     }
 }
+
 
 #Preview {
     ContentView()
