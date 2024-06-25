@@ -66,7 +66,7 @@ struct ActivityEntry: View {
             trailing: Button(action: {
                 self.submitJournal()
             }) {
-                Text("Submit Journal")
+                Text("Submit")
                     .foregroundColor(currentPage == questions.count - 1 ? .customSecondary100 : .gray)
             }
             .disabled(currentPage != questions.count - 1)
@@ -97,15 +97,7 @@ struct ActivityEntry: View {
 
 
 struct ActivityEntry_Previews: PreviewProvider {
-    static var questions = [
-        "1. Example Question 1",
-        "2. Example Question 2",
-        "3. Example Question 3",
-        "4. Example Question 4",
-        "5. Example Question 5",
-    ]
     static var previews: some View {
-//        ActivityEntry(questions: questions)
         ContentView()
     }
 }

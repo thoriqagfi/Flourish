@@ -101,10 +101,17 @@ struct PopupView: View {
                 NavigationLink(
                     destination: ActivityEntry(topic: topic, questions: questions),
                     isActive: $isNavigating,
-                    label: { HomeView().blur(radius: 10.0) }
+                    label: { EmptyView() }
                 )
+                .hidden()
+                .onAppear {
+                    if isNavigating {
+                        showPopup = false // Ensure to dismiss popup on navigation
+                    }
+                }
             )
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func generateQuestions() {
@@ -115,22 +122,19 @@ struct PopupView: View {
                 let response = try await model.generateContent(prompt)
                 if let text = response.text {
                     questions = text.split(separator: "\n").map { String($0) }
+                    isNavigating = true // Set isNavigating to trigger navigation
                 }
             } catch {
                 print("Error generating questions: \(error.localizedDescription)")
             }
             isLoading = false
-            showPopup.toggle()
         }
     }
 }
 
+
 struct PopupView_Previews: PreviewProvider {
     static var previews: some View {
-        PopupView(showPopup: .constant(true))
+        ContentView()
     }
-}
-
-#Preview {
-    ContentView()
 }

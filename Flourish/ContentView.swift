@@ -65,14 +65,7 @@ struct ContentView: View {
             .edgesIgnoringSafeArea(.all)
             
             if showPopup {
-//                Color.customPrimary30.opacity(0.1)
-//                    .edgesIgnoringSafeArea(.all)
-//                    .blur(radius: 3) // Blur the background when showPopup is true
-//                    .onTapGesture {
-//                        showPopup = false
-//                    }
                 PopupView(showPopup: $showPopup)
-//                    .background(Color.customPrimary10.opacity(0.01)) // Ensure popup background is gray
             }
         }
         .sheet(isPresented: $showingNewEntrySheet) {
