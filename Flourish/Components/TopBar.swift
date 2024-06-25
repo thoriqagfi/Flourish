@@ -10,17 +10,7 @@ import SwiftUI
 struct TopBar: View {
     var body: some View {
         HStack {
-            HStack(spacing: 26, content: {
-                HStack(spacing: 8, content: {
-                    Image(systemName: "leaf")
-                    Text("6 Seeds")
-                })
-                HStack(spacing: 8, content: {
-                    Image(systemName: "flame")
-                    Text("24 Streak")
-                })
-            })
-            .foregroundColor(.customSecondary100)
+            UserStats(seeds: 6, streaks: 24)
             
             Spacer()
             

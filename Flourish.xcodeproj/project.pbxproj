@@ -19,7 +19,6 @@
 		D09A814F2C28113200240E96 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A814E2C28113200240E96 /* TopBar.swift */; };
 		D09A81522C28115500240E96 /* JournalEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81512C28115500240E96 /* JournalEntry.swift */; };
 		D09A81542C28116900240E96 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81532C28116900240E96 /* User.swift */; };
-		D09A81572C28118600240E96 /* JournalContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81562C28118600240E96 /* JournalContents.swift */; };
 		D09A815A2C2811A600240E96 /* EntryCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81592C2811A600240E96 /* EntryCardData.swift */; };
 		D09A815D2C2811DF00240E96 /* Color+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A815C2C2811DF00240E96 /* Color+Palette.swift */; };
 		D09A81602C28120500240E96 /* NewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A815F2C28120500240E96 /* NewEntry.swift */; };
@@ -27,6 +26,9 @@
 		D09A81662C2954F800240E96 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = D09A81652C2954F800240E96 /* GoogleGenerativeAI */; };
 		D09A81682C29669A00240E96 /* PromptedTextbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81672C29669A00240E96 /* PromptedTextbox.swift */; };
 		D09A816A2C29670000240E96 /* ActivityEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81692C29670000240E96 /* ActivityEntry.swift */; };
+		D0C501812C2A9BD500C5675B /* PlantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501802C2A9BD500C5675B /* PlantView.swift */; };
+		D0C501832C2AAC2200C5675B /* UserStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501822C2AAC2200C5675B /* UserStats.swift */; };
+		D0C501892C2AB5C500C5675B /* JournalContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501882C2AB5C500C5675B /* JournalContents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,13 +45,15 @@
 		D09A814E2C28113200240E96 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		D09A81512C28115500240E96 /* JournalEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntry.swift; sourceTree = "<group>"; };
 		D09A81532C28116900240E96 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		D09A81562C28118600240E96 /* JournalContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalContents.swift; sourceTree = "<group>"; };
 		D09A81592C2811A600240E96 /* EntryCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCardData.swift; sourceTree = "<group>"; };
 		D09A815C2C2811DF00240E96 /* Color+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Palette.swift"; sourceTree = "<group>"; };
 		D09A815F2C28120500240E96 /* NewEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEntry.swift; sourceTree = "<group>"; };
 		D09A81612C293C3B00240E96 /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		D09A81672C29669A00240E96 /* PromptedTextbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptedTextbox.swift; sourceTree = "<group>"; };
 		D09A81692C29670000240E96 /* ActivityEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityEntry.swift; sourceTree = "<group>"; };
+		D0C501802C2A9BD500C5675B /* PlantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantView.swift; sourceTree = "<group>"; };
+		D0C501822C2AAC2200C5675B /* UserStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStats.swift; sourceTree = "<group>"; };
+		D0C501882C2AB5C500C5675B /* JournalContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalContents.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,7 @@
 				D09A814A2C2810E700240E96 /* JournalingCard.swift */,
 				D09A814C2C28110F00240E96 /* StreakDateCard.swift */,
 				D09A814E2C28113200240E96 /* TopBar.swift */,
+				D0C501822C2AAC2200C5675B /* UserStats.swift */,
 				D09A81672C29669A00240E96 /* PromptedTextbox.swift */,
 			);
 			path = Components;
@@ -138,7 +143,7 @@
 		D09A81552C28117900240E96 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D09A81562C28118600240E96 /* JournalContents.swift */,
+				D0C501882C2AB5C500C5675B /* JournalContents.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				D09A81472C2810C100240E96 /* HomeView.swift */,
+				D0C501802C2A9BD500C5675B /* PlantView.swift */,
 				D09A815F2C28120500240E96 /* NewEntry.swift */,
 				D09A81612C293C3B00240E96 /* PopupView.swift */,
 				D09A81692C29670000240E96 /* ActivityEntry.swift */,
@@ -262,14 +268,16 @@
 				D09A814D2C28110F00240E96 /* StreakDateCard.swift in Sources */,
 				D09A81482C2810C100240E96 /* HomeView.swift in Sources */,
 				D09A81622C293C3B00240E96 /* PopupView.swift in Sources */,
+				D0C501812C2A9BD500C5675B /* PlantView.swift in Sources */,
 				D00D28522C2A345D00AD5B69 /* JournalViewModel.swift in Sources */,
 				D09A81542C28116900240E96 /* User.swift in Sources */,
 				D09A81682C29669A00240E96 /* PromptedTextbox.swift in Sources */,
+				D0C501892C2AB5C500C5675B /* JournalContents.swift in Sources */,
+				D0C501832C2AAC2200C5675B /* UserStats.swift in Sources */,
 				D09A81392C280ED300240E96 /* ContentView.swift in Sources */,
 				D09A814B2C2810E700240E96 /* JournalingCard.swift in Sources */,
 				D09A81372C280ED300240E96 /* FlourishApp.swift in Sources */,
 				D09A816A2C29670000240E96 /* ActivityEntry.swift in Sources */,
-				D09A81572C28118600240E96 /* JournalContents.swift in Sources */,
 				D09A815D2C2811DF00240E96 /* Color+Palette.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

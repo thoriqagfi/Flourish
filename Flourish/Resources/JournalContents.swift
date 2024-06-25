@@ -2,7 +2,7 @@
 //  JournalContents.swift
 //  Flourish
 //
-//  Created by Agfi on 23/06/24.
+//  Created by Agfi on 25/06/24.
 //
 
 import Foundation

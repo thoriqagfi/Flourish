@@ -23,7 +23,9 @@ struct HomeView: View {
                 VStack {
                     Image("PlantBackground")
                         .overlay(alignment: .center) {
-                            Image("Plant")
+                            NavigationLink(destination: PlantView()) {
+                                Image("Plant")
+                            }
                         }
                     StreakDateCard(selectedDayIndex: $selectedDayIndex)
                         .padding(.top, -32)
@@ -65,6 +67,7 @@ struct HomeView: View {
         return filteredEntries
     }
 }
+
 
 
 #Preview {

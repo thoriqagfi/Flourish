@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var selection: Tab = .home
     @State private var showingNewEntrySheet = false
-    @State private var showPopup = false // Add this state variable
+    @State private var showPopup = false
 
     enum Tab {
         case home
@@ -19,60 +19,63 @@ struct ContentView: View {
     }
 
     var body: some View {
-        ZStack {
-            TabView(selection: $selection) {
-                Group {
-                    HomeView()
-                        .tabItem {
-                            Label("Home", systemImage: "house.fill")
-                        }
-                        .tag(Tab.home)
+        NavigationView {
+            ZStack {
+                TabView(selection: $selection) {
+                    Group {
+                        HomeView()
+                            .tabItem {
+                                Label("Home", systemImage: "house.fill")
+                            }
+                            .tag(Tab.home)
 
-                    Text("Profile")
-                        .tabItem {
-                            Label("Profile", systemImage: "person.fill")
-                        }
-                        .tag(Tab.profile)
+                        Text("Profile")
+                            .tabItem {
+                                Label("Profile", systemImage: "person.fill")
+                            }
+                            .tag(Tab.profile)
+                    }
+                    .toolbarBackground(.white, for: .tabBar)
+                    .toolbarBackground(.visible, for: .tabBar)
                 }
-                .toolbarBackground(.white, for: .tabBar)
-                .toolbarBackground(.visible, for: .tabBar)
-            }
-            .accentColor(.orange)
-            .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 2)
-            
-            GeometryReader { geometry in
-                VStack {
-                    Spacer()
-                    HStack {
+                .accentColor(.orange)
+                .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 2)
+                
+                GeometryReader { geometry in
+                    VStack {
                         Spacer()
-                        Button(action: {
-                            showingNewEntrySheet = true
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 60, height: 60)
-                                .foregroundColor(.orange.opacity(0.6))
-                                .background(Color.white)
-                                .clipShape(Circle())
-                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                showingNewEntrySheet = true
+                            }) {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(.orange.opacity(0.6))
+                                    .background(Color.white)
+                                    .clipShape(Circle())
+                                    .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
+                            }
+                            .padding(.bottom, geometry.safeAreaInsets.bottom + 40)
+                            Spacer()
                         }
-                        .padding(.bottom, geometry.safeAreaInsets.bottom + 40)
-                        Spacer()
                     }
                 }
+                .edgesIgnoringSafeArea(.all)
+                
+                if showPopup {
+                    PopupView(showPopup: $showPopup)
+                }
             }
-            .edgesIgnoringSafeArea(.all)
-            
-            if showPopup {
-                PopupView(showPopup: $showPopup)
+            .sheet(isPresented: $showingNewEntrySheet) {
+                NewEntry(showPopup: $showPopup, showingNewEntrySheet: $showingNewEntrySheet)
             }
-        }
-        .sheet(isPresented: $showingNewEntrySheet) {
-            NewEntry(showPopup: $showPopup, showingNewEntrySheet: $showingNewEntrySheet) // Pass the bindings
         }
     }
 }
+
 
 #Preview {
     ContentView()

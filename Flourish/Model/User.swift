@@ -10,5 +10,5 @@ import Foundation
 struct User {
     let name: String
     let seeds: Int
-    let streak: Int
+    let streaks: Int
 }
