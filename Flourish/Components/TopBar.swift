@@ -14,10 +14,10 @@ struct TopBar: View {
             
             Spacer()
             
-            Image(systemName: "person.crop.circle.fill")
+            Image(systemName: "person.crop.circle")
                 .resizable()
                 .frame(width: 44, height: 44)
-                .foregroundColor(.customPrimary100)
+                .foregroundColor(.customSecondary100)
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 12)

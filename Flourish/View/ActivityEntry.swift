@@ -20,7 +20,7 @@ struct ActivityEntry: View {
     var topic: String
     var questions: [String]
     
-    @State private var user: User = JournalManager.shared.getCurrentUser()
+    @State private var user: User = UserManager.shared.getCurrentUser()
     
     init(topic: String, questions: [String]) {
         self.topic = topic
@@ -90,18 +90,17 @@ struct ActivityEntry: View {
         
         let today = Date()
         if !JournalManager.shared.hasEntry(for: today) {
-            let updatedSeeds = user.seeds + 5
+            let updatedTeapot = user.teapot + 5
             let updatedStreaks = user.streaks + 1
-            JournalManager.shared.updateUser(seeds: updatedSeeds, streaks: updatedStreaks)
+            UserManager.shared.updateUser(seeds: user.seeds, streaks: updatedStreaks, teapot: updatedTeapot)
         }
         
         JournalManager.shared.completeEntry(for: topic)
         
-        user = JournalManager.shared.getCurrentUser()
+        user = UserManager.shared.getCurrentUser()
         
         presentationMode.wrappedValue.dismiss()
     }
-    
 }
 
 struct ActivityEntry_Previews: PreviewProvider {

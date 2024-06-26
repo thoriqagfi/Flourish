@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var plantViewModel = PlantViewModel()
+    
     @State private var selectedDayIndex: Int?
     @State private var journalEntries: [JournalEntry] = []
     
@@ -23,8 +25,8 @@ struct HomeView: View {
                 VStack {
                     Image("PlantBackground")
                         .overlay(alignment: .center) {
-                            NavigationLink(destination: PlantView()) {
-                                Image("Plant")
+                            NavigationLink(destination: PlantView(plantViewModel: plantViewModel)) {
+                                Image(plantViewModel.plants.first!.name)
                             }
                         }
                     StreakDateCard(selectedDayIndex: $selectedDayIndex)

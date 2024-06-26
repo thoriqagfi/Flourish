@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PlantView: View {
+    @ObservedObject var plantViewModel: PlantViewModel
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
@@ -58,23 +60,24 @@ struct PlantView: View {
                     })
                 Image("grass")
                     .resizable()
-                    .edgesIgnoringSafeArea(.bottom) // This line extends the view to the bottom edge
+                    .edgesIgnoringSafeArea(.bottom)
                     .overlay(content: {
-                        VStack(spacing: 60, content: {
-                            Text("28/50")
+                        VStack(spacing: 60) {
+                            Text("\(plantViewModel.selectedPlant!.amountFlushed)/\(plantViewModel.selectedPlant!.countFlushedtoFinish)")
                                 .foregroundColor(.customSecondary100)
                                 .fontWeight(.bold)
                                 .font(.title)
-                            Image("Plant")
                             
-                            VStack(spacing: 8, content: {
+                            Image("\(plantViewModel.selectedPlant!.name)")
+                            
+                            VStack(spacing: 8) {
                                 Button(action: {
-                                    
-                                }, label: {
-                                    HStack(spacing: 8, content: {
+                                    plantViewModel.flushSelectedPlant()
+                                }) {
+                                    HStack(spacing: 8) {
                                         Image(systemName: "plus")
                                         Text("Water")
-                                    })
+                                    }
                                     .fontWeight(.semibold)
                                     .padding(.horizontal, 32)
                                     .padding(.vertical, 16)
@@ -82,16 +85,16 @@ struct PlantView: View {
                                     .background(Color.customPrimary80)
                                     .cornerRadius(20)
                                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
-                                })
+                                }
                                 
-                                HStack(content: {
+                                HStack {
                                     Image("teko")
-                                    Text("29")
+                                    Text("\(plantViewModel.user.teapot)")
                                         .foregroundColor(.white)
-                                })
-                            })
-                        })
-                        .offset(CGSize(width: 0, height: -100.0))
+                                }
+                            }
+                        }
+                        .offset(y: -100.0)
                     })
             }
             .background(Color.customPrimary10)
