@@ -11,9 +11,13 @@ class UserViewModel: ObservableObject {
     @Published var user: User
     private let userDefaultsKey = "user"
     
-    init(user: User) {
-        self.user = user
-        loadUser()
+    init() {
+        if let userData = UserDefaults.standard.data(forKey: userDefaultsKey),
+           let storedUser = try? JSONDecoder().decode(User.self, from: userData) {
+            self.user = storedUser
+        } else {
+            self.user = User(seeds: 0, streaks: 0, teapot: 50)
+        }
     }
     
     func addStreaks(amount: Int) {
@@ -26,19 +30,17 @@ class UserViewModel: ObservableObject {
         saveChanges()
     }
     
+    func addTeapot(amount: Int) {
+        user.teapot += amount
+        saveChanges()
+    }
+    
     private func saveChanges() {
         do {
             let userData = try JSONEncoder().encode(user)
             UserDefaults.standard.set(userData, forKey: userDefaultsKey)
         } catch {
             print("Error saving user data: \(error)")
-        }
-    }
-    
-    private func loadUser() {
-        if let userData = UserDefaults.standard.data(forKey: userDefaultsKey),
-           let storedUser = try? JSONDecoder().decode(User.self, from: userData) {
-            self.user = storedUser
         }
     }
 }

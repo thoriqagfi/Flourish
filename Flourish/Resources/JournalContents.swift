@@ -25,9 +25,9 @@ struct JournalContents {
             description: "Write down your tasks to stay organized and focused."
         ),
         EntryCardData(
-                    image: "Default Journal",
-                    title: "Default Journal",
-                    description: "Review your daily experiences freely from scratch."
+            image: "Default Journal",
+            title: "Default Journal",
+            description: "Review your daily experiences freely from scratch."
         )
     ]
 }

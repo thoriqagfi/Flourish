@@ -12,9 +12,12 @@ import Combine
 class PlantViewModel: ObservableObject {
     @Published var plants: [Plant] = []
     @Published var selectedPlant: Plant?
-    @Published var user: User = UserManager.shared.getCurrentUser()
-    
-    init() {
+    @Published var isWatering: Bool = false
+
+    @ObservedObject var userViewModel: UserViewModel
+
+    init(userViewModel: UserViewModel) {
+        self.userViewModel = userViewModel
         self.plants = PlantManager.shared.loadPlants()
         if plants.isEmpty {
             addInitialPlant()
@@ -23,7 +26,7 @@ class PlantViewModel: ObservableObject {
     }
     
     private func addInitialPlant() {
-        let initialPlant = Plant(name: "Plant", amountFlushed: 0, countFlushedtoFinish: 50)
+        let initialPlant = Plant(name: "Plant", amountFlushed: 0, countFlushedtoFinish: 100)
         PlantManager.shared.addPlant(initialPlant)
         self.plants = PlantManager.shared.loadPlants()
     }
@@ -39,36 +42,31 @@ class PlantViewModel: ObservableObject {
             print("No plant selected!")
             return
         }
-        
-        // Check if the plant has already reached the finish count
-        if plant.amountFlushed >= plant.countFlushedtoFinish {
-            print("Plant has already been fully watered!")
-            return
-        }
-        
-        // Check if there are enough teapots to water the plant
-        guard user.teapot > 0 else {
+        guard userViewModel.user.teapot > 0 else {
             print("Not enough teapots!")
             return
         }
-        
-        // Update the teapots count
-        user.teapot -= 1
-        UserManager.shared.saveCurrentUser()
-        
-        // Update the flushed plant
+        guard plant.amountFlushed < plant.countFlushedtoFinish else {
+            print("Plant has already been fully flushed!")
+            return
+        }
+
+        isWatering = true
+
+        // Immediately update the UI
         let updatedPlant = Plant(name: plant.name, amountFlushed: plant.amountFlushed + 1, countFlushedtoFinish: plant.countFlushedtoFinish)
-        PlantManager.shared.updatePlant(updatedPlant)
-        
-        // Update the plants array
-        if let index = plants.firstIndex(where: { $0.name == updatedPlant.name }) {
+        if let index = plants.firstIndex(of: plant) {
             plants[index] = updatedPlant
-            
-            // Dispatch UI update on the main queue
-            DispatchQueue.main.async {
-                // Update selectedPlant to reflect the flushed plant
-                self.selectedPlant = updatedPlant
-            }
+        }
+        selectedPlant = updatedPlant
+
+        // Delay the persistence and state change for the animation
+        let animationDuration: Double = 4.0 // Set this to your animation's duration
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) { // Delay for the animation's duration
+            self.userViewModel.addTeapot(amount: -1)
+            PlantManager.shared.updatePlant(updatedPlant)
+            self.isWatering = false
         }
     }
     

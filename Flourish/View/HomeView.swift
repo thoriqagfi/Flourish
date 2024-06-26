@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @StateObject private var plantViewModel = PlantViewModel()
+    @StateObject private var plantViewModel = PlantViewModel(userViewModel: UserViewModel())
     
     @State private var selectedDayIndex: Int?
     @State private var journalEntries: [JournalEntry] = []
@@ -19,7 +19,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack(spacing: -32) {
-            TopBar()
+            TopBar(userViewModel: UserViewModel())
                 .zIndex(1)
             ScrollView {
                 VStack {

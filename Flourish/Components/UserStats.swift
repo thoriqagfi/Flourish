@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct UserStats: View {
-    @State private var user: User = UserManager.shared.getCurrentUser()
+    @ObservedObject var userViewModel: UserViewModel
     
     var body: some View {
         HStack(spacing: 16, content: {
             HStack(spacing: 8, content: {
                 Image(systemName: "leaf.fill")
-                Text("\(user.seeds) Seeds")
+                Text("\(userViewModel.user.seeds) Seeds")
             })
             HStack(spacing: 8, content: {
                 Image(systemName: "flame.fill")
-                Text("\(user.streaks) Streak")
+                Text("\(userViewModel.user.streaks) Streak")
+            })
+            HStack(spacing: 8, content: {
+                Text("\(userViewModel.user.teapot) Teko")
             })
         })
         .foregroundColor(.customSecondary100)

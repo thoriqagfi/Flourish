@@ -9,7 +9,7 @@ import Foundation
 
 class UserManager {
     static let shared = UserManager()
-    private let userDefaultsUserKey = "currentUser"
+    private let userDefaultsUserKey = "user"
     private var currentUser: User
     
     private init() {

@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import Lottie
 
 struct PlantView: View {
     @ObservedObject var plantViewModel: PlantViewModel
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top) {
-                    UserStats()
+                    UserStats(userViewModel: UserViewModel())
                     Spacer()
                     VStack(spacing: 16) {
                         Button(action: {
@@ -67,9 +68,12 @@ struct PlantView: View {
                                 .foregroundColor(.customSecondary100)
                                 .fontWeight(.bold)
                                 .font(.title)
-                            
+                                .animation(.easeInOut, value: plantViewModel.selectedPlant!.amountFlushed) // Animate text change
+
                             Image("\(plantViewModel.selectedPlant!.name)")
-                            
+                                .scaleEffect(plantViewModel.isWatering ? 1.1 : 1.0) // Scale animation
+                                .animation(.spring(), value: plantViewModel.isWatering) // Animate image scaling
+
                             VStack(spacing: 8) {
                                 Button(action: {
                                     plantViewModel.flushSelectedPlant()
@@ -89,7 +93,7 @@ struct PlantView: View {
                                 
                                 HStack {
                                     Image("teko")
-                                    Text("\(plantViewModel.user.teapot)")
+                                    Text("\(plantViewModel.userViewModel.user.teapot)")
                                         .foregroundColor(.white)
                                 }
                             }
@@ -98,6 +102,25 @@ struct PlantView: View {
                     })
             }
             .background(Color.customPrimary10)
+            .overlay(
+                Group {
+                    if plantViewModel.isWatering {
+                        WateringAnimationView() // Show animation overlay
+                    }
+                }
+            )
+        }
+    }
+}
+
+struct WateringAnimationView: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            LottieViewComponent()
+                .frame(width: 200, height: 200)
+                .offset(CGSize(width: -80.0, height: 0.0))
+            Spacer()
         }
     }
 }

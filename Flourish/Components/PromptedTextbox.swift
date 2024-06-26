@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct PromptedTextbox: View {
-    var question: String // Accept a single question
-    @Binding var answer: String // Bind the answer to the ActivityEntry's state
-    var topic: String // The topic associated with this journal entry
-    
+    var question: String
+    @Binding var answer: String
+    var topic: String
+    var regeneratePrompt: (() -> Void)?
+
     var body: some View {
         VStack(alignment: .center, spacing: 32) {
-            
-            // Subheadline/Emphasized
             Text(question)
                 .font(
                     Font.custom("SF Pro", size: 15)
@@ -23,8 +22,7 @@ struct PromptedTextbox: View {
                 )
                 .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
                 .frame(width: 312, alignment: .topLeading)
-            
-            // TextEditor for user's answer
+
             TextEditor(text: $answer)
                 .font(Font.custom("SF Pro", size: 15))
                 .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
@@ -32,18 +30,15 @@ struct PromptedTextbox: View {
                 .background(Color.customPrimary30)
                 .cornerRadius(10)
                 .onChange(of: answer) { newAnswer in
-                    // Update the answer using JournalManager
                     JournalManager.shared.updateAnswer(for: topic, question: question, answer: newAnswer)
                 }
-            
+
             Divider()
                 .frame(width: 312, height: 1)
                 .background(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-            
-            // Button to regenerate prompt (if needed)
+
             Button(action: {
-                print("Regenerate button tapped")
-                // Implement your logic for regenerating the prompt if required
+                regeneratePrompt?()
             }) {
                 Text("Regenerate Prompt")
                     .font(
@@ -71,8 +66,6 @@ struct PromptedTextbox: View {
         .cornerRadius(10)
     }
 }
-
-
 
 #Preview {
     ContentView()

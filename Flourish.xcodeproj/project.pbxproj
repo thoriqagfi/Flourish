@@ -34,6 +34,9 @@
 		D0C5018F2C2B8F4900C5675B /* PlantManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5018E2C2B8F4900C5675B /* PlantManager.swift */; };
 		D0C501912C2B8F6D00C5675B /* PlantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501902C2B8F6D00C5675B /* PlantViewModel.swift */; };
 		D0C501932C2B9D8700C5675B /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501922C2B9D8700C5675B /* UserManager.swift */; };
+		D0C501962C2BAC2300C5675B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D0C501952C2BAC2300C5675B /* Lottie */; };
+		D0C501982C2BAD7F00C5675B /* watering.json in Resources */ = {isa = PBXBuildFile; fileRef = D0C501972C2BAD7F00C5675B /* watering.json */; };
+		D0C5019A2C2BAF0800C5675B /* LottieViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +67,8 @@
 		D0C5018E2C2B8F4900C5675B /* PlantManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantManager.swift; sourceTree = "<group>"; };
 		D0C501902C2B8F6D00C5675B /* PlantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlantViewModel.swift; path = Flourish/Service/PlantViewModel.swift; sourceTree = SOURCE_ROOT; };
 		D0C501922C2B9D8700C5675B /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		D0C501972C2BAD7F00C5675B /* watering.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = watering.json; sourceTree = "<group>"; };
+		D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieViewComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D09A81662C2954F800240E96 /* GoogleGenerativeAI in Frameworks */,
+				D0C501962C2BAC2300C5675B /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				D09A81452C28109B00240E96 /* EntryCard.swift */,
+				D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */,
 				D09A814A2C2810E700240E96 /* JournalingCard.swift */,
 				D09A814C2C28110F00240E96 /* StreakDateCard.swift */,
 				D09A814E2C28113200240E96 /* TopBar.swift */,
@@ -156,6 +163,7 @@
 		D09A81552C28117900240E96 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0C501972C2BAD7F00C5675B /* watering.json */,
 				D0C501882C2AB5C500C5675B /* JournalContents.swift */,
 			);
 			path = Resources;
@@ -217,6 +225,7 @@
 			name = Flourish;
 			packageProductDependencies = (
 				D09A81652C2954F800240E96 /* GoogleGenerativeAI */,
+				D0C501952C2BAC2300C5675B /* Lottie */,
 			);
 			productName = Flourish;
 			productReference = D09A81332C280ED300240E96 /* Flourish.app */;
@@ -248,6 +257,7 @@
 			mainGroup = D09A812A2C280ED300240E96;
 			packageReferences = (
 				D09A81642C2954F800240E96 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				D0C501942C2BAC2300C5675B /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = D09A81342C280ED300240E96 /* Products */;
 			projectDirPath = "";
@@ -263,6 +273,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0C501982C2BAD7F00C5675B /* watering.json in Resources */,
 				D09A813E2C280ED400240E96 /* Preview Assets.xcassets in Resources */,
 				D09A813B2C280ED400240E96 /* Assets.xcassets in Resources */,
 			);
@@ -278,6 +289,7 @@
 				D09A81522C28115500240E96 /* JournalEntry.swift in Sources */,
 				D09A815A2C2811A600240E96 /* EntryCardData.swift in Sources */,
 				D09A81602C28120500240E96 /* NewEntry.swift in Sources */,
+				D0C5019A2C2BAF0800C5675B /* LottieViewComponent.swift in Sources */,
 				D09A814F2C28113200240E96 /* TopBar.swift in Sources */,
 				D0C5018D2C2B8A4C00C5675B /* Plant.swift in Sources */,
 				D09A81462C28109B00240E96 /* EntryCard.swift in Sources */,
@@ -514,6 +526,14 @@
 				minimumVersion = 0.5.4;
 			};
 		};
+		D0C501942C2BAC2300C5675B /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -521,6 +541,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D09A81642C2954F800240E96 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
 			productName = GoogleGenerativeAI;
+		};
+		D0C501952C2BAC2300C5675B /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0C501942C2BAC2300C5675B /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

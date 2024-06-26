@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct TopBar: View {
+    @ObservedObject var userViewModel: UserViewModel
     var body: some View {
         HStack {
-            UserStats()
+            UserStats(userViewModel: userViewModel)
             
             Spacer()
             

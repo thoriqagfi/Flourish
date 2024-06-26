@@ -99,7 +99,7 @@ struct PopupView: View {
             }
             .background(
                 NavigationLink(
-                    destination: ActivityEntry(topic: topic, questions: questions),
+                    destination: ActivityEntry(topic: topic, questions: $questions, userViewModel: UserViewModel()),
                     isActive: $isNavigating,
                     label: { EmptyView() }
                 )
