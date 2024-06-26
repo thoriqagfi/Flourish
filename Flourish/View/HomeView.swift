@@ -42,6 +42,7 @@ struct HomeView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
         .background(Color.customPrimary30)
         .onAppear(perform: loadJournalEntries)
     }

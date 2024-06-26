@@ -106,7 +106,7 @@ struct PopupView: View {
                 .hidden()
                 .onAppear {
                     if isNavigating {
-                        showPopup = false // Ensure to dismiss popup on navigation
+                        showPopup = false
                     }
                 }
             )
@@ -122,7 +122,7 @@ struct PopupView: View {
                 let response = try await model.generateContent(prompt)
                 if let text = response.text {
                     questions = text.split(separator: "\n").map { String($0) }
-                    isNavigating = true // Set isNavigating to trigger navigation
+                    isNavigating = true
                 }
             } catch {
                 print("Error generating questions: \(error.localizedDescription)")

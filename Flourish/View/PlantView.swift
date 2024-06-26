@@ -19,7 +19,6 @@ struct PlantView: View {
                     Spacer()
                     VStack(spacing: 16) {
                         Button(action: {
-                            // Action for gift button
                         }) {
                             Image(systemName: "gift")
                                 .resizable()
@@ -31,7 +30,6 @@ struct PlantView: View {
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
-                            // Action for book button
                         }) {
                             Image(systemName: "book.closed")
                                 .resizable()
@@ -43,7 +41,6 @@ struct PlantView: View {
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
-                            // Action for badge button
                         }) {
                             Image("fi-rr-badge")
                                 .foregroundStyle(Color.customSecondary100)
@@ -64,15 +61,15 @@ struct PlantView: View {
                     .edgesIgnoringSafeArea(.bottom)
                     .overlay(content: {
                         VStack(spacing: 60) {
-                            Text("\(plantViewModel.selectedPlant!.amountFlushed)/\(plantViewModel.selectedPlant!.countFlushedtoFinish)")
+                            Text("\(plantViewModel.selectedPlant?.amountFlushed ?? 0)/\(plantViewModel.selectedPlant?.countFlushedtoFinish ?? 0)")
                                 .foregroundColor(.customSecondary100)
                                 .fontWeight(.bold)
                                 .font(.title)
-                                .animation(.easeInOut, value: plantViewModel.selectedPlant!.amountFlushed) // Animate text change
+                                .animation(.easeInOut, value: plantViewModel.selectedPlant?.amountFlushed ?? 1)
 
-                            Image("\(plantViewModel.selectedPlant!.name)")
-                                .scaleEffect(plantViewModel.isWatering ? 1.1 : 1.0) // Scale animation
-                                .animation(.spring(), value: plantViewModel.isWatering) // Animate image scaling
+                            Image("\(plantViewModel.selectedPlant?.name ?? "Plant")")
+                                .scaleEffect(plantViewModel.isWatering ? 1.1 : 1.0)
+                                .animation(.spring(), value: plantViewModel.isWatering)
 
                             VStack(spacing: 8) {
                                 Button(action: {
@@ -105,22 +102,10 @@ struct PlantView: View {
             .overlay(
                 Group {
                     if plantViewModel.isWatering {
-                        WateringAnimationView() // Show animation overlay
+                        WateringAnimationView()
                     }
                 }
             )
-        }
-    }
-}
-
-struct WateringAnimationView: View {
-    var body: some View {
-        VStack {
-            Spacer()
-            LottieViewComponent()
-                .frame(width: 200, height: 200)
-                .offset(CGSize(width: -80.0, height: 0.0))
-            Spacer()
         }
     }
 }

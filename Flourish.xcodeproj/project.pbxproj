@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D00D28522C2A345D00AD5B69 /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */; };
+		D04062902C2CD821003A2100 /* WateringAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040628F2C2CD821003A2100 /* WateringAnimationView.swift */; };
 		D09A81372C280ED300240E96 /* FlourishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81362C280ED300240E96 /* FlourishApp.swift */; };
 		D09A81392C280ED300240E96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81382C280ED300240E96 /* ContentView.swift */; };
 		D09A813B2C280ED400240E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09A813A2C280ED400240E96 /* Assets.xcassets */; };
@@ -37,10 +38,12 @@
 		D0C501962C2BAC2300C5675B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D0C501952C2BAC2300C5675B /* Lottie */; };
 		D0C501982C2BAD7F00C5675B /* watering.json in Resources */ = {isa = PBXBuildFile; fileRef = D0C501972C2BAD7F00C5675B /* watering.json */; };
 		D0C5019A2C2BAF0800C5675B /* LottieViewComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */; };
+		D0C5019C2C2C19F200C5675B /* WritingRecap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5019B2C2C19F200C5675B /* WritingRecap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
+		D040628F2C2CD821003A2100 /* WateringAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WateringAnimationView.swift; sourceTree = "<group>"; };
 		D09A81332C280ED300240E96 /* Flourish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flourish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09A81362C280ED300240E96 /* FlourishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlourishApp.swift; sourceTree = "<group>"; };
 		D09A81382C280ED300240E96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +72,7 @@
 		D0C501922C2B9D8700C5675B /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		D0C501972C2BAD7F00C5675B /* watering.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = watering.json; sourceTree = "<group>"; };
 		D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieViewComponent.swift; sourceTree = "<group>"; };
+		D0C5019B2C2C19F200C5675B /* WritingRecap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingRecap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,7 @@
 			children = (
 				D09A81452C28109B00240E96 /* EntryCard.swift */,
 				D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */,
+				D040628F2C2CD821003A2100 /* WateringAnimationView.swift */,
 				D09A814A2C2810E700240E96 /* JournalingCard.swift */,
 				D09A814C2C28110F00240E96 /* StreakDateCard.swift */,
 				D09A814E2C28113200240E96 /* TopBar.swift */,
@@ -193,6 +198,7 @@
 				D09A815F2C28120500240E96 /* NewEntry.swift */,
 				D09A81612C293C3B00240E96 /* PopupView.swift */,
 				D09A81692C29670000240E96 /* ActivityEntry.swift */,
+				D0C5019B2C2C19F200C5675B /* WritingRecap.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -287,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D09A81522C28115500240E96 /* JournalEntry.swift in Sources */,
+				D04062902C2CD821003A2100 /* WateringAnimationView.swift in Sources */,
 				D09A815A2C2811A600240E96 /* EntryCardData.swift in Sources */,
 				D09A81602C28120500240E96 /* NewEntry.swift in Sources */,
 				D0C5019A2C2BAF0800C5675B /* LottieViewComponent.swift in Sources */,
@@ -306,6 +313,7 @@
 				D0C501892C2AB5C500C5675B /* JournalContents.swift in Sources */,
 				D0C5018B2C2AF0AF00C5675B /* UserViewModel.swift in Sources */,
 				D0C501832C2AAC2200C5675B /* UserStats.swift in Sources */,
+				D0C5019C2C2C19F200C5675B /* WritingRecap.swift in Sources */,
 				D09A81392C280ED300240E96 /* ContentView.swift in Sources */,
 				D09A814B2C2810E700240E96 /* JournalingCard.swift in Sources */,
 				D09A81372C280ED300240E96 /* FlourishApp.swift in Sources */,

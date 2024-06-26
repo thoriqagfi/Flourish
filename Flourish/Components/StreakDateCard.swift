@@ -10,7 +10,7 @@ import SwiftUI
 struct StreakDateCard: View {
     @Binding var selectedDayIndex: Int?
     
-    @State private var journalEntries: [JournalEntry] = [] // Assuming you have access to journal entries
+    @State private var journalEntries: [JournalEntry] = []
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -76,7 +76,6 @@ struct StreakDateCard: View {
                 })
                 Spacer()
                 Button(action: {
-                    // Action for "Show more" button
                 }) {
                     Text("Show more >")
                         .font(.caption2)
@@ -137,7 +136,7 @@ struct StreakDateCard: View {
         } else if isToday {
             return Color.customPrimary80
         } else if isEmptyEntry {
-            return Color.customDanger.opacity(0.3) // Adjust the color for empty entries
+            return Color.customDanger.opacity(0.3)
         } else {
             return Color.customPrimary30
         }
@@ -163,7 +162,6 @@ struct StreakDateCard: View {
     }
     
     func loadJournalEntries() {
-        // Load journal entries using the JournalManager or any other means
         journalEntries = JournalManager.shared.loadEntries()
     }
     

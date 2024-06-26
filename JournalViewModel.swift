@@ -51,8 +51,7 @@ class JournalManager {
             }
         }
     }
-
-    // New method to update a question
+    
     func updateQuestion(for topic: String, oldQuestion: String, newQuestion: String) {
         if let entryIndex = entries.firstIndex(where: { $0.topic == topic }) {
             if let questionIndex = entries[entryIndex].questions.firstIndex(of: oldQuestion) {

@@ -24,9 +24,9 @@ struct NewEntry: View {
                             ForEach(JournalContents.contents, id: \.title) { content in
                                 EntryCard(data: content)
                                     .onTapGesture {
-                                        showingNewEntrySheet = false // Close the sheet
+                                        showingNewEntrySheet = false
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            showPopup = true // Show the popup after a delay to ensure the sheet closes first
+                                            showPopup = true
                                         }
                                     }
                             }
@@ -34,13 +34,13 @@ struct NewEntry: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 32)
-                    .blur(radius: showPopup ? 3 : 0) // Apply blur effect when popup is visible
+                    .blur(radius: showPopup ? 3 : 0)
                 }
                 .animation(.easeInOut, value: showPopup)
                 Spacer()
             }
             .background(Color.customPrimary10)
-            .navigationBarTitle("New Entry") // Set navigation title here
+            .navigationBarTitle("New Entry")
         }
     }
 }

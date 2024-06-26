@@ -53,17 +53,16 @@ class PlantViewModel: ObservableObject {
 
         isWatering = true
 
-        // Immediately update the UI
+        
         let updatedPlant = Plant(name: plant.name, amountFlushed: plant.amountFlushed + 1, countFlushedtoFinish: plant.countFlushedtoFinish)
         if let index = plants.firstIndex(of: plant) {
             plants[index] = updatedPlant
         }
         selectedPlant = updatedPlant
 
-        // Delay the persistence and state change for the animation
-        let animationDuration: Double = 4.0 // Set this to your animation's duration
+        let animationDuration: Double = 4.0
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) { // Delay for the animation's duration
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
             self.userViewModel.addTeapot(amount: -1)
             PlantManager.shared.updatePlant(updatedPlant)
             self.isWatering = false

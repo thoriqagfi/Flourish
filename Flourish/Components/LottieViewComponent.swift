@@ -16,7 +16,6 @@ struct LottieViewComponent: View {
             LottieView(animation: .named("watering"))
                 .playbackMode(playbackMode)
                 .animationDidFinish { _ in
-                    // No need to change playbackMode here, it will loop continuously
                 }
         }
     }

@@ -35,7 +35,6 @@ struct JournalingCard: View {
             .padding(.bottom, 20)
             
             if journalType == "Reflection", let entry = entry {
-                // Start Reflection Journaling
                 Text(entry.questions.first ?? "No questions available.")
                     .font(.body)
                     .fontWeight(.bold)
@@ -45,7 +44,6 @@ struct JournalingCard: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .lineLimit(3)
-                // End Reflection Journaling
             }
             
             HStack(alignment: .bottom) {

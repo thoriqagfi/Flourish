@@ -11,6 +11,11 @@ import GoogleGenerativeAI
 struct ActivityEntry: View {
     @State private var currentPage = 0
     @State private var answers: [String]
+    @State private var totalWordsWritten = 0
+    @State private var writingStartTime = Date()
+    @State private var showWritingRecap = false
+    @State private var totalWritingTime: String = "00:00"
+    
     @Environment(\.presentationMode) var presentationMode
     
     private let rectCount = 5
@@ -60,7 +65,13 @@ struct ActivityEntry: View {
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             .onAppear {
                 currentPage = 0
+                writingStartTime = Date()
             }
+            
+            NavigationLink(destination: WritingRecap(answers: answers, totalWords: totalWordsWritten, totalMinutes: totalWritingTime, streak: userViewModel.user.streaks), isActive: $showWritingRecap) {
+                EmptyView()
+            }
+            .hidden()
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitle("Question \(currentPage + 1)", displayMode: .inline)
@@ -85,7 +96,7 @@ struct ActivityEntry: View {
                 if isLoading {
                     Color.black.opacity(0.2)
                         .edgesIgnoringSafeArea(.all)
-                        .blur(radius: /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                        .blur(radius: 10.0)
                     
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle())
@@ -108,6 +119,10 @@ struct ActivityEntry: View {
         
         JournalManager.shared.saveEntry(topic: topic, questions: questions, answers: answers)
         
+        totalWordsWritten = answers.reduce(0) { total, answer in
+            total + answer.split { $0.isWhitespace }.count
+        }
+        
         let today = Date()
         if !JournalManager.shared.hasEntry(for: today) {
             userViewModel.addTeapot(amount: 5)
@@ -116,7 +131,16 @@ struct ActivityEntry: View {
         
         JournalManager.shared.completeEntry(for: topic)
         
-        presentationMode.wrappedValue.dismiss()
+        totalWritingTime = calculateWritingTime()
+        showWritingRecap = true
+    }
+    
+    private func calculateWritingTime() -> String {
+        let writingEndTime = Date()
+        let writingDuration = writingEndTime.timeIntervalSince(writingStartTime)
+        let minutes = Int(writingDuration) / 60
+        let seconds = Int(writingDuration) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
     }
     
     private func regenerateQuestions(for index: Int) {
@@ -126,10 +150,9 @@ struct ActivityEntry: View {
             let prompt = "I want to write a journal with a topic \(topic). Can you help me make a prompt question to help me writing? Provide me with a question without any following questions or additional description."
             do {
                 let response = try await GenerativeModel(name: "gemini-pro", apiKey: "AIzaSyCw_Qr1xj_qgA1yQcxK_9-hZwh7Otn5k8U").generateContent(prompt)
-                print("\(response)")
                 if let text = response.text {
                     let newQuestion = text.trimmingCharacters(in: .whitespacesAndNewlines)
-                    if !newQuestion.isEmpty {
+                    if (!newQuestion.isEmpty) {
                         DispatchQueue.main.async {
                             questions[index] = newQuestion
                             JournalManager.shared.updateQuestion(for: topic, oldQuestion: oldQuestion, newQuestion: newQuestion)
@@ -139,25 +162,15 @@ struct ActivityEntry: View {
             } catch {
                 print("Error generating question: \(error.localizedDescription)")
             }
-            isLoading = false
+            DispatchQueue.main.async {
+                isLoading = false
+            }
         }
     }
 }
 
 struct ActivityEntry_Previews: PreviewProvider {
-    static var questions = [
-        "1",
-        "2",
-        "3"
-    ]
-    static var answer = [
-        "1",
-        "2",
-        "3"
-    ]
-    static var topic = "Topic"
     static var previews: some View {
         ContentView()
-//        ActivityEntry(topic: topic, questions: questions, userViewModel: UserViewModel())
     }
 }
