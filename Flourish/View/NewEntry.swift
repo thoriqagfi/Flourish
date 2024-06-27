@@ -18,7 +18,7 @@ struct NewEntry: View {
                     VStack(spacing: 32) {
                         Text("Start self-journaling today. Dedicate a space to freely express your thoughts and reflect on your experiences.")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .opacity(0.6)
                         
                         VStack(spacing: 32) {
                             ForEach(JournalContents.contents, id: \.title) { content in
@@ -39,6 +39,7 @@ struct NewEntry: View {
                 .animation(.easeInOut, value: showPopup)
                 Spacer()
             }
+            .foregroundColor(.teks)
             .background(Color.customPrimary10)
             .navigationBarTitle("New Entry")
         }

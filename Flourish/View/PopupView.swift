@@ -29,11 +29,28 @@ struct PopupView: View {
                 VStack {
                     // White frame container
                     VStack(alignment: .center, spacing: 16) {
-                        Text(isLoading ? "Generate Your Prompt" : "Add your topic")
-                            .font(.title3)
-                            .fontWeight(.semibold)
-                            .multilineTextAlignment(.center)
+                        HStack (alignment: .center, spacing: 0) {
+                            Text("")
+                            Spacer()
+                            Text(isLoading ? "Generate Your Prompt" : "Add your topic")
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                                .multilineTextAlignment(.center)
                             .foregroundColor(.black)
+                            Spacer()
+                            // Back button
+                            Button(action: {
+                                showPopup = false
+                            }) {
+                                Image(systemName: "xmark")
+                                    .font(
+                                    Font.custom("SF Pro", size: 20)
+                                    .weight(.semibold)
+                                    )
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))                            }
+
+                        }
                         
                         if isLoading {
                             ProgressView()
@@ -42,36 +59,25 @@ struct PopupView: View {
                                 .frame(width: 300, height: 300)
                         } else {
                             TextField("Enter your topic here...", text: $topic)
-                                .padding()
-                                .background(Color.gray.opacity(0.1))
-                                .cornerRadius(10)
-                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
-                                .foregroundColor(.black)
-                                .frame(width: 300)
+                                .padding(.leading, 16)
+                                .padding(.trailing, 8)
+                                .padding(.top, 16)
+                                .padding(.bottom, 151)
+                                .frame(height: 187, alignment: .trailing)
+                                .background(Color.customPrimary30)
+                                .cornerRadius(16)
                         }
                     }
                     .padding(.horizontal, 20)
                     .padding(.top, 16)
                     .padding(.bottom, 20)
                     .frame(width: 353)
-                    .background(Color.white)
+                    .background(Color.customPrimary10)
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                     
                     
                     HStack(spacing: 12) {
-                        // Back button
-                        Button(action: {
-                            showPopup = false
-                        }) {
-                            Image(systemName: "arrowshape.turn.up.backward")
-                                .foregroundColor(.black)
-                                .padding(20)
-                                .background(Color.gray.opacity(0.5))
-                                .cornerRadius(20)
-                                .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
-                        }
-                        
                         // Generate button
                         Button(action: {
                             if !isLoading {

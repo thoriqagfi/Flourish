@@ -27,7 +27,7 @@ struct JournalingCard: View {
                 Spacer()
                 Image(systemName: "ellipsis")
             }
-            .foregroundColor(.black)
+            .foregroundColor(.customTeks)
             .padding(.bottom, 20)
             
             if journalType == "Reflection", let entry = entry {
@@ -35,11 +35,13 @@ struct JournalingCard: View {
                     .multilineTextAlignment(.leading)
                     .font(.body)
                     .fontWeight(.bold)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.customTeks2)
+                    .opacity(0.6)
                     .padding(.bottom, 4)
                 Text(entry.answers.first ?? "No reflection available.")
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(.customTeks2)
+                    .opacity(0.6)
                     .lineLimit(3)
             }
             

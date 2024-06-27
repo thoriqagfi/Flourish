@@ -32,6 +32,22 @@ struct StreakDateCard: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            HStack {
+                HStack(spacing: 4, content: {
+                    Image(systemName: "calendar")
+                        .font(.caption2)
+                    Text(dateFormatter.string(from: Date()))
+                        .font(.caption2)
+                        .fontWeight(.semibold)
+                })
+                Spacer()
+                Button(action: {
+                }) {
+                    Text("Show more >")
+                        .font(.caption2)
+                }
+            }
+            .foregroundColor(.teks)
             HStack(spacing: 7) {
                 ForEach(0..<7) { index in
                     let dayName = dayOfWeek(for: index)
@@ -65,22 +81,7 @@ struct StreakDateCard: View {
                     }
                 }
             }
-            
-            HStack {
-                HStack(spacing: 4, content: {
-                    Image(systemName: "calendar")
-                        .font(.caption2)
-                    Text(dateFormatter.string(from: Date()))
-                        .font(.caption2)
-                        .fontWeight(.semibold)
-                })
-                Spacer()
-                Button(action: {
-                }) {
-                    Text("Show more >")
-                        .font(.caption2)
-                }
-            }
+
         }
         .foregroundColor(.customSecondary100)
         .padding()

@@ -25,4 +25,7 @@ extension Color {
     static let customDanger = Color("Danger")
     static let customOnProgress = Color("On Progress")
     static let customSuccess = Color("Success")
+
+    static let customTeks = Color("teks")
+    static let customTeks2 = Color("teks2")
 }

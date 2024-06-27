@@ -23,31 +23,30 @@ struct PlantView: View {
                             Image(systemName: "gift")
                                 .resizable()
                                 .frame(width: 32, height: 32)
-                                .foregroundStyle(Color.customSecondary100)
+                                .foregroundStyle(Color.teks)
                                 .padding(16)
-                                .background(Color.white)
+                                .background(Color.customPrimary100)
                                 .cornerRadius(30)
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
-                            print("Selected plant: \(plantViewModel.selectedPlant)")
-                            print("Plants: \(plantViewModel.plants)")
                         }) {
                             Image(systemName: "book.closed")
                                 .resizable()
                                 .frame(width: 32, height: 32)
-                                .foregroundStyle(Color.customSecondary100)
+                                .foregroundStyle(Color.teks)
                                 .padding(16)
-                                .background(Color.white)
+                                .background(Color.customPrimary100)
                                 .cornerRadius(30)
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
                         }) {
                             Image("fi-rr-badge")
-                                .foregroundStyle(Color.customSecondary100)
-                                .padding(16)
-                                .background(Color.white)
+                                .foregroundStyle(Color.teks)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 12)
+                                .background(Color.customPrimary100)
                                 .cornerRadius(30)
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
@@ -113,5 +112,5 @@ struct PlantView: View {
 }
 
 #Preview {
-    ContentView()
+    PlantView(plantViewModel: PlantViewModel(userViewModel: UserViewModel()))
 }
