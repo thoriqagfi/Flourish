@@ -12,6 +12,7 @@
 		D04062922C2CFB1D003A2100 /* PlantImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062912C2CFB1D003A2100 /* PlantImageView.swift */; };
 		D04062942C2D02AB003A2100 /* WaveShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062932C2D02AB003A2100 /* WaveShape.swift */; };
 		D04062962C2D092D003A2100 /* JournalEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062952C2D092D003A2100 /* JournalEntryDetailView.swift */; };
+		D06BA8232C2DB3F900E23BA2 /* DateRangePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06BA8222C2DB3F900E23BA2 /* DateRangePickerView.swift */; };
 		D09A81372C280ED300240E96 /* FlourishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81362C280ED300240E96 /* FlourishApp.swift */; };
 		D09A81392C280ED300240E96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81382C280ED300240E96 /* ContentView.swift */; };
 		D09A813B2C280ED400240E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09A813A2C280ED400240E96 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		D04062912C2CFB1D003A2100 /* PlantImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantImageView.swift; sourceTree = "<group>"; };
 		D04062932C2D02AB003A2100 /* WaveShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveShape.swift; sourceTree = "<group>"; };
 		D04062952C2D092D003A2100 /* JournalEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryDetailView.swift; sourceTree = "<group>"; };
+		D06BA8222C2DB3F900E23BA2 /* DateRangePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRangePickerView.swift; sourceTree = "<group>"; };
 		D09A81332C280ED300240E96 /* Flourish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flourish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09A81362C280ED300240E96 /* FlourishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlourishApp.swift; sourceTree = "<group>"; };
 		D09A81382C280ED300240E96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				D040628F2C2CD821003A2100 /* WateringAnimationView.swift */,
 				D09A814A2C2810E700240E96 /* JournalingCard.swift */,
 				D09A814C2C28110F00240E96 /* StreakDateCard.swift */,
+				D06BA8222C2DB3F900E23BA2 /* DateRangePickerView.swift */,
 				D09A814E2C28113200240E96 /* TopBar.swift */,
 				D0C501822C2AAC2200C5675B /* UserStats.swift */,
 				D09A81672C29669A00240E96 /* PromptedTextbox.swift */,
@@ -319,6 +322,7 @@
 				D00D28522C2A345D00AD5B69 /* JournalViewModel.swift in Sources */,
 				D0C5018F2C2B8F4900C5675B /* PlantManager.swift in Sources */,
 				D09A81542C28116900240E96 /* User.swift in Sources */,
+				D06BA8232C2DB3F900E23BA2 /* DateRangePickerView.swift in Sources */,
 				D04062922C2CFB1D003A2100 /* PlantImageView.swift in Sources */,
 				D09A81682C29669A00240E96 /* PromptedTextbox.swift in Sources */,
 				D0C501912C2B8F6D00C5675B /* PlantViewModel.swift in Sources */,

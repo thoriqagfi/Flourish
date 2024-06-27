@@ -21,7 +21,10 @@ struct UserStats: View {
                 Text("\(userViewModel.user.streaks) Streak")
             })
             HStack(spacing: 8, content: {
-                Text("\(userViewModel.user.teapot) Teko")
+                Image("teko-hijau")
+                    .resizable()
+                    .frame(width: 25, height: 18)
+                Text("\(userViewModel.user.teapot) Gembor")
             })
         })
         .foregroundColor(.customSecondary100)

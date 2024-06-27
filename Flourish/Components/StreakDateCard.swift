@@ -11,6 +11,9 @@ struct StreakDateCard: View {
     @Binding var selectedDayIndex: Int?
     
     @State private var journalEntries: [JournalEntry] = []
+    @State private var showDatePicker = false
+    @State private var startDate = Date()
+    @State private var endDate = Date().addingTimeInterval(6*24*60*60)
     
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -42,9 +45,13 @@ struct StreakDateCard: View {
                 })
                 Spacer()
                 Button(action: {
+                    showDatePicker = true
                 }) {
                     Text("Show more >")
                         .font(.caption2)
+                }
+                .sheet(isPresented: $showDatePicker) {
+                    DateRangePickerView(startDate: $startDate, endDate: $endDate)
                 }
             }
             .foregroundColor(.teks)
@@ -81,7 +88,6 @@ struct StreakDateCard: View {
                     }
                 }
             }
-
         }
         .foregroundColor(.customSecondary100)
         .padding()

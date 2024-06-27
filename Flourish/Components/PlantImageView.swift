@@ -21,17 +21,14 @@ struct PlantImageView: View {
             
             Image(imageFill)
                 .mask(
-//                    WaveShape(progress: progress)
-//                        .scaleEffect(x: 1, y: -1, anchor: .bottom)
-//                        .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: false), value: progress)
                     Rectangle()
                         .scaleEffect(x: 1, y: progress, anchor: .bottom)
                 )
-                .offset(x: -3.5, y: -2)
+                .offset(x: -4, y: -2.5)
         }
     }
 }
 
 #Preview {
-    PlantImageView(imageBackground: "Plant", imageFill: "Plant-fill", amountFlushed: 20, countFlushedtoFinish: 100)
+    PlantImageView(imageBackground: "Plant", imageFill: "Plant-fill", amountFlushed: 100, countFlushedtoFinish: 100)
 }

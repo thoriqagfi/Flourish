@@ -10,30 +10,36 @@ import SwiftUI
 struct WaveShape: Shape {
     var progress: CGFloat
     var waveHeight: CGFloat = 10
+    var phase: CGFloat = 0
 
-    var animatableData: CGFloat {
-        get { progress }
-        set { progress = newValue }
+    var animatableData: AnimatablePair<CGFloat, CGFloat> {
+        get { AnimatablePair(progress, phase) }
+        set {
+            progress = newValue.first
+            phase = newValue.second
+        }
     }
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let waveLength = rect.width / 4
-        let yOffset = rect.height * (1 - progress)
-        
+
+        let width = rect.width
+        let height = rect.height
+        let yOffset = height * (1 - progress)
+
         path.move(to: CGPoint(x: 0, y: yOffset))
-        
-        for x in stride(from: 0, to: rect.width + waveLength, by: 1) {
-            let relativeX = x / waveLength
-            let sine = sin(relativeX * .pi * 2)
-            let y = yOffset + sine * waveHeight
+
+        for x in stride(from: 0, to: width, by: 1) {
+            let relativeX = x / width
+            let sine = sin(relativeX * .pi * 2 + phase)
+            let y = waveHeight * sine + yOffset
             path.addLine(to: CGPoint(x: x, y: y))
         }
-        
-        path.addLine(to: CGPoint(x: rect.width, y: rect.height))
-        path.addLine(to: CGPoint(x: 0, y: rect.height))
+
+        path.addLine(to: CGPoint(x: width, y: height))
+        path.addLine(to: CGPoint(x: 0, y: height))
         path.closeSubpath()
-        
+
         return path
     }
 }

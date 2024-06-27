@@ -75,13 +75,6 @@ struct JournalingCard: View {
         
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
-//        if calendar.isDateInToday(date) {
-//            formatter.dateFormat = "HH:mm"
-//            return formatter.string(from: date)
-//        } else {
-//            formatter.dateFormat = "HH:mm - EEEE, d MMMM yyyy"
-//            return formatter.string(from: date)
-//        }
     }
 }
 

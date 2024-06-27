@@ -49,12 +49,9 @@ struct ContentView: View {
                             Button(action: {
                                 showingNewEntrySheet = true
                             }) {
-                                Image(systemName: "plus.circle.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 60, height: 60)
-                                    .foregroundColor(.orange.opacity(0.6))
-                                    .background(Color.white)
+                                Image("fi-rr-file-add")
+                                    .padding()
+                                    .background(Color.customPrimary100)
                                     .clipShape(Circle())
                                     .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                             }
