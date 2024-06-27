@@ -21,6 +21,9 @@ struct PlantImageView: View {
             
             Image(imageFill)
                 .mask(
+//                    WaveShape(progress: progress)
+//                        .scaleEffect(x: 1, y: -1, anchor: .bottom)
+//                        .animation(.easeInOut(duration: 2.0).repeatForever(autoreverses: false), value: progress)
                     Rectangle()
                         .scaleEffect(x: 1, y: progress, anchor: .bottom)
                 )

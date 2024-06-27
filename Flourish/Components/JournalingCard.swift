@@ -21,21 +21,18 @@ struct JournalingCard: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
-                Text(journalType)
+                Text(entry?.topic ?? "No topic found")
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
-                Text(entry?.isCompleted == true ? "Completed" : "Incomplete")
-                    .font(.caption2)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
-                    .background(Color.orange)
-                    .cornerRadius(20)
+                Image(systemName: "ellipsis")
             }
+            .foregroundColor(.black)
             .padding(.bottom, 20)
             
             if journalType == "Reflection", let entry = entry {
                 Text(entry.questions.first ?? "No questions available.")
+                    .multilineTextAlignment(.leading)
                     .font(.body)
                     .fontWeight(.bold)
                     .foregroundColor(.secondary)
@@ -47,13 +44,16 @@ struct JournalingCard: View {
             }
             
             HStack(alignment: .bottom) {
-                Text(dateString(for: entry?.date))
+                Text("\(dateString(for: entry?.date)) - \(journalType)")
                     .font(.caption)
                     .foregroundColor(.gray)
                 Spacer()
-                Image(systemName: "ellipsis")
-                    .frame(width: 43, height: 43)
-                    .background(Color.customPrimary30)
+                Text(entry?.isCompleted == true ? "Done" : "Incomplete")
+                    .font(.caption2)
+                    .foregroundColor(entry?.isCompleted == true ? .customSuccess : .customDanger)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(entry?.isCompleted == true ? Color.customSuccess.opacity(0.1): Color.customDanger.opacity(0.3))
                     .cornerRadius(20)
             }
             .padding(.vertical, 8)
@@ -71,13 +71,15 @@ struct JournalingCard: View {
         let calendar = Calendar.current
         let formatter = DateFormatter()
         
-        if calendar.isDateInToday(date) {
-            formatter.dateFormat = "HH:mm"
-            return formatter.string(from: date)
-        } else {
-            formatter.dateFormat = "HH:mm - EEEE, d MMMM yyyy"
-            return formatter.string(from: date)
-        }
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+//        if calendar.isDateInToday(date) {
+//            formatter.dateFormat = "HH:mm"
+//            return formatter.string(from: date)
+//        } else {
+//            formatter.dateFormat = "HH:mm - EEEE, d MMMM yyyy"
+//            return formatter.string(from: date)
+//        }
     }
 }
 

@@ -35,7 +35,9 @@ struct HomeView: View {
                     
                     VStack(spacing: 32) {
                         ForEach(filteredEntries(), id: \.self) { entry in
-                            JournalingCard(journalType: "Reflection", date: getSelectedDate(), entry: entry)
+                            NavigationLink(destination: JournalEntryDetailView(journalType: "Reflection", entry: entry)) {
+                                JournalingCard(journalType: "Reflection", date: getSelectedDate(), entry: entry)
+                            }
                         }
                     }
                     Spacer()

@@ -15,7 +15,7 @@ struct PlantView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top) {
-                    UserStats(userViewModel: plantViewModel.userViewModel)
+                    UserStats(userViewModel: UserViewModel())
                     Spacer()
                     VStack(spacing: 16) {
                         Button(action: {

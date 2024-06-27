@@ -10,6 +10,8 @@
 		D00D28522C2A345D00AD5B69 /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */; };
 		D04062902C2CD821003A2100 /* WateringAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040628F2C2CD821003A2100 /* WateringAnimationView.swift */; };
 		D04062922C2CFB1D003A2100 /* PlantImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062912C2CFB1D003A2100 /* PlantImageView.swift */; };
+		D04062942C2D02AB003A2100 /* WaveShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062932C2D02AB003A2100 /* WaveShape.swift */; };
+		D04062962C2D092D003A2100 /* JournalEntryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062952C2D092D003A2100 /* JournalEntryDetailView.swift */; };
 		D09A81372C280ED300240E96 /* FlourishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81362C280ED300240E96 /* FlourishApp.swift */; };
 		D09A81392C280ED300240E96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81382C280ED300240E96 /* ContentView.swift */; };
 		D09A813B2C280ED400240E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09A813A2C280ED400240E96 /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
 		D040628F2C2CD821003A2100 /* WateringAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WateringAnimationView.swift; sourceTree = "<group>"; };
 		D04062912C2CFB1D003A2100 /* PlantImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantImageView.swift; sourceTree = "<group>"; };
+		D04062932C2D02AB003A2100 /* WaveShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveShape.swift; sourceTree = "<group>"; };
+		D04062952C2D092D003A2100 /* JournalEntryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalEntryDetailView.swift; sourceTree = "<group>"; };
 		D09A81332C280ED300240E96 /* Flourish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flourish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09A81362C280ED300240E96 /* FlourishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlourishApp.swift; sourceTree = "<group>"; };
 		D09A81382C280ED300240E96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			children = (
 				D09A81452C28109B00240E96 /* EntryCard.swift */,
 				D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */,
+				D04062932C2D02AB003A2100 /* WaveShape.swift */,
 				D04062912C2CFB1D003A2100 /* PlantImageView.swift */,
 				D040628F2C2CD821003A2100 /* WateringAnimationView.swift */,
 				D09A814A2C2810E700240E96 /* JournalingCard.swift */,
@@ -198,6 +203,7 @@
 			children = (
 				D09A81472C2810C100240E96 /* HomeView.swift */,
 				D0C501802C2A9BD500C5675B /* PlantView.swift */,
+				D04062952C2D092D003A2100 /* JournalEntryDetailView.swift */,
 				D09A815F2C28120500240E96 /* NewEntry.swift */,
 				D09A81612C293C3B00240E96 /* PopupView.swift */,
 				D09A81692C29670000240E96 /* ActivityEntry.swift */,
@@ -301,10 +307,12 @@
 				D09A81602C28120500240E96 /* NewEntry.swift in Sources */,
 				D0C5019A2C2BAF0800C5675B /* LottieViewComponent.swift in Sources */,
 				D09A814F2C28113200240E96 /* TopBar.swift in Sources */,
+				D04062962C2D092D003A2100 /* JournalEntryDetailView.swift in Sources */,
 				D0C5018D2C2B8A4C00C5675B /* Plant.swift in Sources */,
 				D09A81462C28109B00240E96 /* EntryCard.swift in Sources */,
 				D0C501932C2B9D8700C5675B /* UserManager.swift in Sources */,
 				D09A814D2C28110F00240E96 /* StreakDateCard.swift in Sources */,
+				D04062942C2D02AB003A2100 /* WaveShape.swift in Sources */,
 				D09A81482C2810C100240E96 /* HomeView.swift in Sources */,
 				D09A81622C293C3B00240E96 /* PopupView.swift in Sources */,
 				D0C501812C2A9BD500C5675B /* PlantView.swift in Sources */,
