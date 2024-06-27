@@ -15,7 +15,7 @@ struct PlantView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 0) {
                 HStack(alignment: .top) {
-                    UserStats(userViewModel: UserViewModel())
+                    UserStats(userViewModel: plantViewModel.userViewModel)
                     Spacer()
                     VStack(spacing: 16) {
                         Button(action: {
@@ -30,6 +30,8 @@ struct PlantView: View {
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
+                            print("Selected plant: \(plantViewModel.selectedPlant)")
+                            print("Plants: \(plantViewModel.plants)")
                         }) {
                             Image(systemName: "book.closed")
                                 .resizable()
@@ -67,7 +69,7 @@ struct PlantView: View {
                                 .font(.title)
                                 .animation(.easeInOut, value: plantViewModel.selectedPlant?.amountFlushed ?? 1)
 
-                            Image("\(plantViewModel.selectedPlant?.name ?? "Plant")")
+                            PlantImageView(imageBackground: "\(plantViewModel.selectedPlant?.name ?? "Plant")", imageFill: "\(plantViewModel.selectedPlant?.name ?? "Plant")-fill", amountFlushed: plantViewModel.selectedPlant?.amountFlushed ?? 0, countFlushedtoFinish: plantViewModel.selectedPlant?.countFlushedtoFinish ?? 50)
                                 .scaleEffect(plantViewModel.isWatering ? 1.1 : 1.0)
                                 .animation(.spring(), value: plantViewModel.isWatering)
 

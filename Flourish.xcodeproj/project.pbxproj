@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D00D28522C2A345D00AD5B69 /* JournalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */; };
 		D04062902C2CD821003A2100 /* WateringAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040628F2C2CD821003A2100 /* WateringAnimationView.swift */; };
+		D04062922C2CFB1D003A2100 /* PlantImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D04062912C2CFB1D003A2100 /* PlantImageView.swift */; };
 		D09A81372C280ED300240E96 /* FlourishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81362C280ED300240E96 /* FlourishApp.swift */; };
 		D09A81392C280ED300240E96 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09A81382C280ED300240E96 /* ContentView.swift */; };
 		D09A813B2C280ED400240E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D09A813A2C280ED400240E96 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		D00D28512C2A345D00AD5B69 /* JournalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalViewModel.swift; sourceTree = SOURCE_ROOT; };
 		D040628F2C2CD821003A2100 /* WateringAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WateringAnimationView.swift; sourceTree = "<group>"; };
+		D04062912C2CFB1D003A2100 /* PlantImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantImageView.swift; sourceTree = "<group>"; };
 		D09A81332C280ED300240E96 /* Flourish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flourish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D09A81362C280ED300240E96 /* FlourishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlourishApp.swift; sourceTree = "<group>"; };
 		D09A81382C280ED300240E96 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			children = (
 				D09A81452C28109B00240E96 /* EntryCard.swift */,
 				D0C501992C2BAF0800C5675B /* LottieViewComponent.swift */,
+				D04062912C2CFB1D003A2100 /* PlantImageView.swift */,
 				D040628F2C2CD821003A2100 /* WateringAnimationView.swift */,
 				D09A814A2C2810E700240E96 /* JournalingCard.swift */,
 				D09A814C2C28110F00240E96 /* StreakDateCard.swift */,
@@ -308,6 +311,7 @@
 				D00D28522C2A345D00AD5B69 /* JournalViewModel.swift in Sources */,
 				D0C5018F2C2B8F4900C5675B /* PlantManager.swift in Sources */,
 				D09A81542C28116900240E96 /* User.swift in Sources */,
+				D04062922C2CFB1D003A2100 /* PlantImageView.swift in Sources */,
 				D09A81682C29669A00240E96 /* PromptedTextbox.swift in Sources */,
 				D0C501912C2B8F6D00C5675B /* PlantViewModel.swift in Sources */,
 				D0C501892C2AB5C500C5675B /* JournalContents.swift in Sources */,

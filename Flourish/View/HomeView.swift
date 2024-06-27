@@ -26,7 +26,7 @@ struct HomeView: View {
                     Image("PlantBackground")
                         .overlay(alignment: .center) {
                             NavigationLink(destination: PlantView(plantViewModel: plantViewModel)) {
-                                Image(plantViewModel.plants.first!.name)
+                                PlantImageView(imageBackground: plantViewModel.plants.first!.name, imageFill: "\(plantViewModel.plants.first!.name)-fill", amountFlushed: plantViewModel.plants.first!.amountFlushed, countFlushedtoFinish: plantViewModel.plants.first!.countFlushedtoFinish)
                             }
                         }
                     StreakDateCard(selectedDayIndex: $selectedDayIndex)
