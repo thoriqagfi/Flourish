@@ -2,7 +2,7 @@
 //  CustomPageControl.swift
 //  Flourish
 //
-//  Created by Agfi on 28/06/24.
+//  Created by Riyadh on 28/06/24.
 //
 
 import SwiftUI

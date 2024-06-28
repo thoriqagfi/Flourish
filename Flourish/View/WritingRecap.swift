@@ -2,7 +2,7 @@
 //  WritingRecap.swift
 //  Flourish
 //
-//  Created by Agfi on 26/06/24.
+//  Created by Riyadh on 26/06/24.
 //
 
 import SwiftUI
@@ -142,7 +142,7 @@ struct WritingRecap: View {
                 }
             }
             
-            NavigationLink(destination: HomeView(), isActive: $navigateToHome) {
+            NavigationLink(destination: ContentView(), isActive: $navigateToHome) {
                 EmptyView()
             }
             NavigationLink(destination: PlantView(plantViewModel: PlantViewModel(userViewModel: UserViewModel())), isActive: $navigateToPlantView) {
