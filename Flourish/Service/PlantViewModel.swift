@@ -26,7 +26,7 @@ class PlantViewModel: ObservableObject {
     }
     
     private func addInitialPlant() {
-        let initialPlant = Plant(name: "Plant", amountFlushed: 0, countFlushedtoFinish: 100)
+        let initialPlant = Plant(name: "Plant", amountFlushed: 0, countFlushedtoFinish: 20)
         PlantManager.shared.addPlant(initialPlant)
         self.plants = PlantManager.shared.loadPlants()
         self.selectedPlant = initialPlant

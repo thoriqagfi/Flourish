@@ -15,58 +15,75 @@ struct PromptedTextbox: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 32) {
-            Text(question)
-                .font(
-                    Font.custom("SF Pro", size: 15)
-                        .weight(.semibold)
-                )
-                .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-                .frame(width: 312, alignment: .topLeading)
-
-            TextEditor(text: $answer)
-                .font(Font.custom("SF Pro", size: 15))
-                .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-                .frame(width: 312, height: 200, alignment: .topLeading)
-                .background(Color.customPrimary30)
-                .cornerRadius(10)
-                .onChange(of: answer) { newAnswer in
-                    JournalManager.shared.updateAnswer(for: topic, question: question, answer: newAnswer)
+            VStack (alignment: .center, spacing: 16){
+                Text(question)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.teks)
+                    .frame(width: 312, height: 75 , alignment: .topLeading)
+                
+                Button(action: {
+                    regeneratePrompt?()
+                }) {
+                    Text("Regenerate Prompt")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.teks)
+                        .frame(width: 220, height: 40)
+                        .background(Color.customPrimary100)
+                        .cornerRadius(10)
+                        .shadow(color: .black.opacity(0.15), radius: 2, x: 0, y: 0)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.customPrimary100, lineWidth: 1)
+                        )
                 }
-
-            Divider()
-                .frame(width: 312, height: 1)
-                .background(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-
-            Button(action: {
-                regeneratePrompt?()
-            }) {
-                Text("Regenerate Prompt")
-                    .font(
-                        Font.custom("SF Pro", size: 15)
-                            .weight(.semibold)
-                    )
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
-                    .frame(width: 220)
-                    .padding(.vertical, 12)
-                    .background(Color.customPrimary30)
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.customPrimary30, lineWidth: 1)
-                    )
-                    .shadow(color: .black.opacity(0.15), radius: 2, x: 0, y: 0)
+                .frame(width: 312)
             }
+            Rectangle()
+                .frame(width: 312, height: 1)
+                .foregroundColor(Color(red: 0.24, green: 0.24, blue: 0.26).opacity(0.6))
+            
+            CustomTextEditor(text: $answer, placeholder: "Enter your answer...")
+                .foregroundColor(.teks.opacity(0.8))
+                .frame(width: 312, height: 320)
+                .background(Color.customPrimary10)
+                .cornerRadius(10)
+                .padding(.vertical, 10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.customPrimary10, lineWidth: 1)
+                )
+            
+            Spacer()
         }
+
         .frame(maxHeight: .infinity, alignment: .top)
         .padding(.top, 20)
         .padding(.horizontal, 20)
         .frame(width: 353, height: 685)
-        .background(Color.customPrimary30)
+        .background(Color.customPrimary10)
         .cornerRadius(10)
+        .shadow(color: .black.opacity(0.25), radius: 2, x: 0, y: 0)
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 
-#Preview {
-    ContentView()
+struct PromptedTextbox_Previews: PreviewProvider {
+    @State static var dummyAnswer: String = "Initial answer"
+    
+    static var previews: some View {
+        PromptedTextbox(question: "Sample Question fanlndflanflndalfnalnfladnfldanlfnakfnaklnfdlanfklanflkadasm;kdmak;sdm;asdasdklasndklsandklsasndlasndlsandlandklandlandlkansdlnlandklsadnlaldnlsaknddsalknda", answer: $dummyAnswer, topic: "Sample Topic")
+    }
+}
+
+
+extension View {
+func hideKeyboard() {
+    let resign = #selector(UIResponder.resignFirstResponder)
+    UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+  }
 }
