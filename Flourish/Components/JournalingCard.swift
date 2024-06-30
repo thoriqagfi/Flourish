@@ -17,7 +17,11 @@ struct JournalingCard: View {
     var journalType: String
     var date: Date?
     var entry: JournalEntry?
-    
+
+    @State private var showMenu = false
+    @State private var showEditEntryView = false
+    @State private var showDeleteConfirmation = false
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
@@ -25,7 +29,46 @@ struct JournalingCard: View {
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
-                Image(systemName: "ellipsis")
+                ZStack {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.customTeks)
+                        .onTapGesture {
+                            showMenu.toggle()
+                        }
+                        .contextMenu {
+                            if let entry = entry {
+                                Button(action: {
+                                    showEditEntryView.toggle()
+                                }) {
+                                    Label("Edit Entry", systemImage: "pencil")
+                                }
+
+                                Button(action: {
+                                    showDeleteConfirmation.toggle()
+                                }) {
+                                    Label("Delete Entry", systemImage: "trash")
+                                }
+                            }
+                        }
+                        .actionSheet(isPresented: $showDeleteConfirmation) {
+                            ActionSheet(
+                                title: Text("Delete Entry"),
+                                message: Text("Are you sure you want to delete this entry?"),
+                                buttons: [
+                                    .destructive(Text("Delete")) {
+                                        deleteEntry()
+                                    },
+                                    .cancel()
+                                ]
+                            )
+                        }
+                }
+                .background(
+                    NavigationLink(destination: ActivityEntry(topic: entry?.topic ?? "", questions: .constant(entry?.questions ?? []), userViewModel: UserViewModel()), isActive: $showEditEntryView) {
+                        EmptyView()
+                    }
+                    .hidden()
+                )
             }
             .foregroundColor(.customTeks)
             .padding(.bottom, 20)
@@ -55,7 +98,7 @@ struct JournalingCard: View {
                     .foregroundColor(entry?.isCompleted == true ? .customSuccess : .customDanger)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
-                    .background(entry?.isCompleted == true ? Color.customSuccess.opacity(0.1): Color.customDanger.opacity(0.3))
+                    .background(entry?.isCompleted == true ? Color.customSuccess.opacity(0.1) : Color.customDanger.opacity(0.3))
                     .cornerRadius(20)
             }
             .padding(.vertical, 8)
@@ -70,13 +113,18 @@ struct JournalingCard: View {
     private func dateString(for date: Date?) -> String {
         guard let date = date else { return "" }
         
-        let calendar = Calendar.current
         let formatter = DateFormatter()
-        
         formatter.dateFormat = "HH:mm"
         return formatter.string(from: date)
     }
+    
+    private func deleteEntry() {
+        if let entry = entry {
+            JournalManager.shared.deleteEntry(entry)
+        }
+    }
 }
+
 
 #Preview {
     ContentView()

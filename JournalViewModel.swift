@@ -16,9 +16,13 @@ class JournalManager {
         entries = loadEntries()
     }
     
-    func saveEntry(topic: String, questions: [String], answers: [String]) {
-        let newEntry = JournalEntry(topic: topic, questions: questions, answers: answers, date: Date(), isCompleted: false)
-        entries.append(newEntry)
+    func saveEntry(topic: String, questions: [String], answers: [String], isCompleted: Bool = false) {
+        let newEntry = JournalEntry(topic: topic, questions: questions, answers: answers, date: Date(), isCompleted: isCompleted)
+        if let index = entries.firstIndex(where: { $0.topic == topic }) {
+            entries[index] = newEntry
+        } else {
+            entries.append(newEntry)
+        }
         saveEntries()
     }
     
@@ -63,5 +67,12 @@ class JournalManager {
     
     func hasEntry(for date: Date) -> Bool {
         return entries.contains { Calendar.current.isDate($0.date, inSameDayAs: date) }
+    }
+
+    func deleteEntry(_ entry: JournalEntry) {
+        if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+            entries.remove(at: index)
+            saveEntries()
+        }
     }
 }

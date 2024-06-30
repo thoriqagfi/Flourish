@@ -66,6 +66,7 @@ struct ContentView: View {
                     PopupView(showPopup: $showPopup)
                 }
             }
+            .navigationBarHidden(true)
             .sheet(isPresented: $showingNewEntrySheet) {
                 NewEntry(showPopup: $showPopup, showingNewEntrySheet: $showingNewEntrySheet)
             }
