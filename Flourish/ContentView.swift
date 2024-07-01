@@ -11,6 +11,8 @@ struct ContentView: View {
     @State private var selection: Tab = .home
     @State private var showingNewEntrySheet = false
     @State private var showPopup = false
+    
+    @State private var showDevelopmentModal: Bool = false
 
     enum Tab {
         case home
@@ -29,9 +31,12 @@ struct ContentView: View {
                             }
                             .tag(Tab.home)
 
-                        Text("Profile")
+                        Text("This feature is under development!")
                             .tabItem {
                                 Label("Profile", systemImage: "person.fill")
+                                    .onTapGesture {
+                                        showDevelopmentModal = true
+                                    }
                             }
                             .tag(Tab.profile)
                     }
@@ -69,6 +74,13 @@ struct ContentView: View {
             .navigationBarHidden(true)
             .sheet(isPresented: $showingNewEntrySheet) {
                 NewEntry(showPopup: $showPopup, showingNewEntrySheet: $showingNewEntrySheet)
+            }
+            .alert(isPresented: $showDevelopmentModal) {
+                Alert(
+                    title: Text("Feature Under Development"),
+                    message: Text("The feature is under development!"),
+                    dismissButton: .default(Text("Ok"))
+                )
             }
         }
     }

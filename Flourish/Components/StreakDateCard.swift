@@ -15,6 +15,8 @@ struct StreakDateCard: View {
     @State private var startDate = Date()
     @State private var endDate = Date().addingTimeInterval(6*24*60*60)
     
+    @State private var showDevelopmentModal: Bool = false
+    
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, d MMMM yyyy"
@@ -45,7 +47,9 @@ struct StreakDateCard: View {
                 })
                 Spacer()
                 Button(action: {
-                    showDatePicker = true
+//                    showDatePicker = true
+                    showDevelopmentModal = true
+                    
                 }) {
                     Text("Show more >")
                         .font(.caption2)
@@ -55,35 +59,37 @@ struct StreakDateCard: View {
                 }
             }
             .foregroundColor(.teks)
-            HStack(spacing: 7) {
-                ForEach(0..<7) { index in
-                    let dayName = dayOfWeek(for: index)
-                    let isToday = self.isToday(index)
-                    let isDisabled = self.isAfterToday(index)
-                    let isEmptyEntry = self.isEmptyEntry(for: index)
-                    
-                    VStack(spacing: 2, content: {
-                        Text(dayName)
-                            .fontWeight(.thin)
-                            .font(.subheadline)
-                        if isToday {
-                            Image(systemName: "flame.fill")
-                                .font(.headline)
-                        } else {
-                            Text(dayFormatter.string(from: dayDate(for: index)))
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                        }
-                    })
-                    .frame(width: 32)
-                    .foregroundColor(textColor(for: index, isDisabled: isDisabled, isToday: isToday, isEmptyEntry: isEmptyEntry))
-                    .padding(.horizontal, 4)
-                    .padding(.vertical, 8)
-                    .background(backgroundColor(for: index, isDisabled: isDisabled, isToday: isToday, isEmptyEntry: isEmptyEntry))
-                    .cornerRadius(12)
-                    .onTapGesture {
-                        if !isDisabled {
-                            selectedDayIndex = index
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 7) {
+                    ForEach(0..<7) { index in
+                        let dayName = dayOfWeek(for: index)
+                        let isToday = self.isToday(index)
+                        let isDisabled = self.isAfterToday(index)
+                        let isEmptyEntry = self.isEmptyEntry(for: index)
+                        
+                        VStack(spacing: 2, content: {
+                            Text(dayName)
+                                .fontWeight(.thin)
+                                .font(.subheadline)
+                            if isToday {
+                                Image(systemName: "flame.fill")
+                                    .font(.headline)
+                            } else {
+                                Text(dayFormatter.string(from: dayDate(for: index)))
+                                    .font(.headline)
+                                    .fontWeight(.semibold)
+                            }
+                        })
+                        .frame(width: 32)
+                        .foregroundColor(textColor(for: index, isDisabled: isDisabled, isToday: isToday, isEmptyEntry: isEmptyEntry))
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 8)
+                        .background(backgroundColor(for: index, isDisabled: isDisabled, isToday: isToday, isEmptyEntry: isEmptyEntry))
+                        .cornerRadius(12)
+                        .onTapGesture {
+                            if !isDisabled {
+                                selectedDayIndex = index
+                            }
                         }
                     }
                 }
@@ -98,10 +104,17 @@ struct StreakDateCard: View {
         .onAppear {
             loadJournalEntries()
         }
+        .alert(isPresented: $showDevelopmentModal) {
+            Alert(
+                title: Text("Feature Under Development"),
+                message: Text("The feature is under development!"),
+                dismissButton: .default(Text("Ok"))
+            )
+        }
     }
     
     func dayOfWeek(for index: Int) -> String {
-        let today = Date()
+        let today = startDate
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: today)
         let daysToAdd = index - (weekday - 1)
@@ -110,7 +123,7 @@ struct StreakDateCard: View {
     }
     
     func dayDate(for index: Int) -> Date {
-        let today = Date()
+        let today = startDate
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: today)
         let daysToAdd = index - (weekday - 1)
@@ -173,7 +186,7 @@ struct StreakDateCard: View {
     }
     
     func getSelectedDate(for index: Int) -> Date? {
-        let today = Date()
+        let today = startDate
         let calendar = Calendar.current
         let weekday = calendar.component(.weekday, from: today)
         let daysToAdd = index - (weekday - 1)

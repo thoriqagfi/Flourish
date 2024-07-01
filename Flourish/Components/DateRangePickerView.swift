@@ -7,38 +7,46 @@
 
 import SwiftUI
 
+struct MonthPickerView: View {
+    @Binding var selectedDate: Date
+    
+    var body: some View {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let currentMonth = Calendar.current.component(.month, from: Date())
+        let months = Array(1...12)
+        let years = Array(2000...currentYear)
+        
+        VStack {
+            Picker("Select Year", selection: $selectedDate, content: {
+                ForEach(years, id: \.self) { year in
+                    Text("\(year)").tag(Calendar.current.date(from: DateComponents(year: year, month: currentMonth))!)
+                }
+            })
+            .pickerStyle(WheelPickerStyle())
+            
+            Picker("Select Month", selection: $selectedDate, content: {
+                ForEach(months, id: \.self) { month in
+                    Text(Calendar.current.monthSymbols[month - 1]).tag(Calendar.current.date(from: DateComponents(year: currentYear, month: month))!)
+                }
+            })
+            .pickerStyle(WheelPickerStyle())
+        }
+    }
+}
+
 struct DateRangePickerView: View {
     @Binding var startDate: Date
     @Binding var endDate: Date
-    @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         VStack {
-            Text("Select Date Range")
-                .font(.headline)
-                .padding()
-
-            DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .padding()
-
-            DatePicker("End Date", selection: $endDate, in: startDate...(startDate.addingTimeInterval(6*24*60*60)), displayedComponents: .date)
-                .datePickerStyle(GraphicalDatePickerStyle())
-                .padding()
-
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Done")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    .padding()
+            MonthPickerView(selectedDate: $startDate)
+                .frame(height: 200)
+            Spacer()
+            Button("Done") {
+                endDate = Calendar.current.date(byAdding: .day, value: 6, to: startDate)!
             }
+            .padding()
         }
-        .padding()
-        .background(Color.customPrimary10)
     }
 }

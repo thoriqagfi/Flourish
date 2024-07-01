@@ -10,6 +10,8 @@ import Lottie
 
 struct PlantView: View {
     @ObservedObject var plantViewModel: PlantViewModel
+    
+    @State private var showDevelopmentModal: Bool = false
 
     var body: some View {
         NavigationView {
@@ -19,6 +21,7 @@ struct PlantView: View {
                     Spacer()
                     VStack(spacing: 16) {
                         Button(action: {
+                            showDevelopmentModal = true
                         }) {
                             Image(systemName: "gift")
                                 .resizable()
@@ -30,6 +33,7 @@ struct PlantView: View {
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
+                            showDevelopmentModal = true
                         }) {
                             Image(systemName: "book.closed")
                                 .resizable()
@@ -41,6 +45,7 @@ struct PlantView: View {
                                 .shadow(color: .black.opacity(0.1), radius: 7.5, x: 0, y: 0)
                         }
                         Button(action: {
+                            showDevelopmentModal = true
                         }) {
                             Image("fi-rr-badge")
                                 .foregroundStyle(Color.teks)
@@ -107,6 +112,13 @@ struct PlantView: View {
                     }
                 }
             )
+            .alert(isPresented: $showDevelopmentModal) {
+                Alert(
+                    title: Text("Feature Under Development"),
+                    message: Text("The feature is under development!"),
+                    dismissButton: .default(Text("Ok"))
+                )
+            }
         }
     }
 }
